@@ -1,0 +1,54 @@
+.a
+{
+	font-style: normal;
+	color: black;
+	resize: none;
+}
+.b
+{
+    border:1;  
+    background-color:transparent;  
+    /*scrollbar-arrow-color:yellow;  
+    scrollbar-base-color:lightsalmon;  
+    overflow: hidden;*/  
+    color: #666464;  
+    height: auto; 
+	resize: none;
+}
+input[type="text"]
+{
+	width:400px;
+}
+input[type="file"]
+{
+	height: 36px;
+  line-height: 36px;
+  vertical-align: middle;
+  display:inline-block;
+}
+input[type="checkbox"]
+{
+	-webkit-appearance: checkbox;
+	box-sizing: border-box;
+	z-index: 1;
+}
+.form-control{
+	width: 120px;
+	margin: 10px 0 0px 0;
+	
+}
+.search{
+	display: inline;
+	width: 250px;
+	line-height: 1.5;
+	font-size: 12px;
+}
+.active-second-menu{
+    color:#ffffff !important;
+}
+#yishenhe{
+	
+}
+#daishenhe{
+	
+}
