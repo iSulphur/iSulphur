@@ -1,6 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
-<a href="helloworld">123</a>
+<jsp:forward page="admin/login.jsp"></jsp:forward>
 </body>
 </html>
