@@ -1,0 +1,37 @@
+.a
+{
+	font-style: normal;
+	color: black;
+	resize: none;
+}
+.b
+{
+    border:1;  
+    background-color:transparent;  
+    /*scrollbar-arrow-color:yellow;  
+    scrollbar-base-color:lightsalmon;  
+    overflow: hidden;*/  
+    color: #666464;  
+    height: auto; 
+	resize: none;
+}
+input[type="text"]
+{
+	width:400px;
+}
+input[type="file"]
+{
+	height: 36px;
+  line-height: 36px;
+  vertical-align: middle;
+  display:inline-block;
+}
+.active-second-menu{
+    color:#ffffff !important;
+}
+#yishenhe{
+	
+}
+#daishenhe{
+	
+}
