@@ -21,7 +21,7 @@
   <div class="card"></div>
   <div class="card">
     <h1 class="title">用户登录</h1>
-    <form action ="user/login" method="post">
+    <form action ="../login.do/method" method="post">
       <div class="input-container">
         <input  id="yonghu" name="username"/>
         <label for="{label}">用户名</label>

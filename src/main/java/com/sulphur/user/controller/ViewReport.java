@@ -22,7 +22,7 @@ import com.sulphur.connectmysql.ConnectMysql;
 public class ViewReport {
 
 	public Connection conn;
-	@RequestMapping("/report")
+	@RequestMapping("/method")
 	public @ResponseBody HashMap<String, String> getReport(HttpServletRequest req) throws SQLException{
 		
 		HashMap<String, String> result = new HashMap<String, String>();//最终返回的结果

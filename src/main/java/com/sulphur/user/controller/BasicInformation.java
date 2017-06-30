@@ -27,7 +27,7 @@ public class BasicInformation {
 		conn = new ConnectMysql().getConnection();
 		PreparedStatement psql;
 		try {
-			psql = conn.prepareStatement("update team set teamName = ?, projectName = ?, teamLeader = ?, telephone = ?, email =? where ID = ?");
+			psql = conn.prepareStatement("update team set team_name = ?, project = ?, team_leader = ?, leader_phone = ?, leader_email =? where ID = ?");
 			psql.setString(1, team_name);
 			psql.setString(2, project);
 			psql.setString(3, team_leader);
