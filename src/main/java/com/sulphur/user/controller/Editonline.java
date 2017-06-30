@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -28,9 +29,9 @@ public class Editonline {
 	
 	@RequestMapping(value="/upload",method=RequestMethod.GET)
 	
-	public String upload( HttpServletRequest req,@Requestparam("团队") String t_name,@Requestparam() String p_name,
-			@Requestparam() String t_leader,@Requestparam() String telephone,@Requestparam() String mail,
-			@Requestparam() String p_progress,@Requestparam() String harvest,@Requestparam() String nextaim)
+	public String upload( HttpServletRequest req,@RequestParam("团 队 名 称 ")String t_name,@RequestParam("项 目 名 称 ") String p_name,
+			@RequestParam("团队负责人：") String t_leader,@RequestParam("联 系 电 话 ：") String telephone,@RequestParam("联 系 邮 箱 ：") String mail,
+			@RequestParam("项 目 进 展 ：") String p_progress,@RequestParam("已取得的阶段性成果：") String harvest,@RequestParam("下一阶段项目计划及时间安排：") String nextaim)
 	throws SQLException
 	{
 		conn = new ConnectMysql().getConnection();
@@ -46,16 +47,8 @@ public class Editonline {
 		cnm.executeQuery();
 		cnm.close();
 		
+		return "success";
 		
-		
-		
-		
-		
-		
-		
-		
-		return new ModelAndView("/user/on-line editing.jsp","message",1);
-	
 	
 	
 }
