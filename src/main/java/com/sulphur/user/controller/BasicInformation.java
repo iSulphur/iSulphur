@@ -4,40 +4,44 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.isulphur.connectmysql.ConnectMysql;
 
 @Controller
+@RequestMapping("/basic")
 public class BasicInformation {
 
 	private Connection conn;
 	
-	@RequestMapping("basic.do")
-	public ModelAndView BasicInformation(HttpSession httpSession, String teamName, String projectName, String teamLeader, String telephone, String qq, String email){
+	@RequestMapping("/update")
+	public @ResponseBody String BasicInformation(@RequestParam("team_name") String team_name,@RequestParam("project") String project, @RequestParam("team_leader") String team_leader,
+			@RequestParam("leader_phone") String leader_phone,@RequestParam("leader_email") String leader_email,HttpServletRequest req){
 		conn = new ConnectMysql().getConnection();
 		PreparedStatement psql;
 		try {
-			psql = conn.prepareStatement("update team set teamName = ?, projectName = ?, teamLeader = ?, telephone = ?, qq = ? email =? where id = ?");
-			psql.setString(1, teamName);
-			psql.setString(2, projectName);
-			psql.setString(3, teamLeader);
-			psql.setString(4, telephone);
-			psql.setString(5, qq);
-			psql.setString(6, email);
-			psql.setString(7, (String)httpSession.getAttribute("id"));
+			psql = conn.prepareStatement("update team set team_name = ?, project = ?, team_leader = ?, leader_phone = ?, leader_email =? where ID = ?");
+			psql.setString(1, team_name);
+			psql.setString(2, project);
+			psql.setString(3, team_leader);
+			psql.setString(4, leader_phone);
+			psql.setString(5, leader_email);
+			psql.setString(6, (String)req.getSession().getAttribute("ID"));
 			psql.executeUpdate();
 			psql.close();
 			conn.close();
-			return new ModelAndView("/user/basicInformation.jsp", "message", "1");
+			return "1";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ModelAndView("/user/basicInformation.jsp", "message", "0");
+			return "0";
 		}
 	}
 }

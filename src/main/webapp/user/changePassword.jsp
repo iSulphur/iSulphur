@@ -96,7 +96,7 @@
 	</div>
 
 	</nav>
-	<form action="changePassword.do" method="post">
+	<form action="queren" method="post">
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper">
 			<div class="header">
