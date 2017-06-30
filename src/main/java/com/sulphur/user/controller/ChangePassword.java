@@ -24,12 +24,12 @@ public class ChangePassword {
 			throws SQLException {
 		conn = new ConnectMysql().getConnection();
 
-		/* ²éÑ¯µ±Ç°ÓÃ»§ÃÜÂë */
+		/* ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		String sql = "select password from admin where username=\"" + HttpSession.getAttribute("username") + "\"";
 		Statement statement = conn.createStatement();
-		ResultSet rs = statement.executeQuery(sql);// ·µ»ØµÄ½á¹û¼¯
+		ResultSet rs = statement.executeQuery(sql);// ï¿½ï¿½ï¿½ØµÄ½ï¿½ï¿½ï¿½ï¿½
 
-		/*Èç¹ûĞÂÃÜÂëºÍÈ·ÈÏÃÜÂëÏàµÈ£¬ÇÒµ±Ç°ÃÜÂëÊäÈëÕıÈ·£¬ÃÜÂëĞŞ¸Ä³É¹¦*/
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Òµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸Ä³É¹ï¿½*/
 		if (newpassword == confirmpassword && currentpassword == rs.getString("password")) {
 			PreparedStatement psql;
 			psql = conn.prepareStatement("update user set password = ? where username= ? ");
@@ -37,13 +37,13 @@ public class ChangePassword {
 			psql.setString(2, (String)HttpSession.getAttribute("username"));
 			psql.executeUpdate();
 			
-			/*¹Ø±ÕÁ¬½Ó*/
+			/*ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½*/
 			psql.close();
 			conn.close();
 			
 			return new ModelAndView("/user/changePassword.jsp", "message", "1");
 		} else
-			return new ModelAndView("/user/changePassword.jsp", "message", "1");
+			return new ModelAndView("/user/changePassword.jsp", "message", "0");
 	}
 
 }
