@@ -10,17 +10,20 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
+
+@RequestMapping("/password")
 public class ChangePassword {
 
 	Connection conn;
 
-	@RequestMapping("queren")
-	public ModelAndView queren(HttpSession HttpSession, String currentpassword, String newpassword, String confirmpassword)
+	@RequestMapping("/update")
+	public @ResponseBody String queren(HttpSession HttpSession, String currentpassword, String newpassword, String confirmpassword)
 			throws SQLException {
 		conn = new ConnectMysql().getConnection();
 
@@ -41,9 +44,9 @@ public class ChangePassword {
 			psql.close();
 			conn.close();
 			
-			return new ModelAndView("/user/changePassword.jsp", "message", "1");
+			return "1";
 		} else
-			return new ModelAndView("/user/changePassword.jsp", "message", "1");
+			return "0";
 	}
 
 }
