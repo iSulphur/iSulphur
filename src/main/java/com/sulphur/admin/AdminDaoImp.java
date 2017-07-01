@@ -10,33 +10,34 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImp implements AdminService {
+public class AdminDaoImp implements AdminDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public int update(AdminVO adminVO) {
-		// TODO Auto-generated method stub
+	public int update(Admin admin) {
 		String sql="update admin set password=? where username=?";
-		return jdbcTemplate.update(sql,adminVO.getPass(), adminVO.getName());
+		return jdbcTemplate.update(sql,admin.getPass(), admin.getName());
 	}
 
-	public AdminVO checkLogin(String name, String pass) {
-		// TODO Auto-generated method stub
+	public Admin checkLogin(String name, String pass) {
 		String sql = "select * from admin where username=? and password=?";
-		List<AdminVO> admins = jdbcTemplate.query(sql, new Object[] {name, pass}, new RowMapper<AdminVO>(){
+		List<Admin> admins = jdbcTemplate.query(sql, new Object[] {name, pass}, new RowMapper<Admin>(){
 			@Override
-			public AdminVO mapRow(ResultSet rs, int num) throws SQLException{
-				AdminVO a = new AdminVO();
+			public Admin mapRow(ResultSet rs, int num) throws SQLException{
+				Admin a = new Admin();
 				a.setName(rs.getString("username"));
 				a.setPass(rs.getString("password"));
 				return a;
 			}
 		});
-		AdminVO admin = null;
+		Admin admin = null;
 		if (admins != null && admins.size() > 0){
 			admin = admins.get(0);
 		}
 		return admin;
+	}
+	public void test(){
+		System.out.println(jdbcTemplate);
 	}
 }

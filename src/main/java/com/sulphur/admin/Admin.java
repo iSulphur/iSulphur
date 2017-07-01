@@ -1,14 +1,14 @@
 package com.sulphur.admin;
 
-public class AdminVO {
+public class Admin {
 	private String name;
 	private String pass;
 	
-	public AdminVO(){
+	public Admin(){
 		
 	}
 	
-	public AdminVO(String name, String pass){
+	public Admin(String name, String pass){
 		super();
 		this.name = name;
 		this.pass = pass;

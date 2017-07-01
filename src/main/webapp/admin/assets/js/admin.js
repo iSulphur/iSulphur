@@ -2,11 +2,11 @@
 function login() {
     $.ajax({
         type: 'post',
-        url: 'admin/login',
+        url: '/iSulphur/admin/login.do',
         data: $('form').serialize(),
         success: function (data) {
             if(data == 1){
-            	alert("登陆成功！");
+            	window.location.href="admin-base-info.html";
             }
             else {
             	alert("登陆失败！");
@@ -14,5 +14,5 @@ function login() {
 
         }
     });
-    // return false;
+    return false;
 }

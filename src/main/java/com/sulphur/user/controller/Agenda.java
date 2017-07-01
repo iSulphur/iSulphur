@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.isulphur.connectmysql.ConnectMysql;
+import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
 @RequestMapping("/agenda.do")
