@@ -1,29 +1,40 @@
 package com.sulphur.admin;
 
 public class Admin {
-	private String name;
-	private String pass;
+	private String adminID;
+	private String adminName;
+	private String adminPhone;
 	
 	public Admin(){
 		
 	}
 	
-	public Admin(String name, String pass){
-		super();
-		this.name = name;
-		this.pass = pass;
+	public Admin(String id, String name, String phone){
+		adminID = id;
+		adminName = name;
+		adminPhone = phone;
 	}
-	public void setName(String name){
-		this.name = name;
+	
+	public String getAdminID() {
+		return adminID;
 	}
-	public String getName(){
-		return this.name;
+	public void setAdminID(String adminID) {
+		this.adminID = adminID;
 	}
-	public void setPass(String pass){
-		this.pass = pass;
+	public String getAdminName() {
+		return adminName;
 	}
-	public String getPass(){
-		return this.pass;
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
+	public String getAdminPhone() {
+		return adminPhone;
+	}
+	public void setAdminPhone(String adminPhone) {
+		this.adminPhone = adminPhone;
+	}
+	
+
+	
 	
 }

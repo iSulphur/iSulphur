@@ -15,29 +15,53 @@ public class AdminDaoImp implements AdminDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public int update(Admin admin) {
-		String sql="update admin set password=? where username=?";
-		return jdbcTemplate.update(sql,admin.getPass(), admin.getName());
+	public int updatePass(String id, String pass) {
+		String sql="update password set password=? where id=? and type=0";
+		return jdbcTemplate.update(sql,pass,id);
 	}
-
-	public Admin checkLogin(String name, String pass) {
-		String sql = "select * from admin where username=? and password=?";
-		List<Admin> admins = jdbcTemplate.query(sql, new Object[] {name, pass}, new RowMapper<Admin>(){
+	@Override
+	public Password checkLogin(String id, String pass) {
+		String sql = "select * from password where id=? and password=? and type=0";
+		List<Password> res = jdbcTemplate.query(sql, new Object[] {id, pass}, new RowMapper<Password>(){
 			@Override
-			public Admin mapRow(ResultSet rs, int num) throws SQLException{
-				Admin a = new Admin();
-				a.setName(rs.getString("username"));
-				a.setPass(rs.getString("password"));
+			public Password mapRow(ResultSet rs, int num) throws SQLException{
+				Password a = new Password();
+				a.setId(rs.getString("id"));
+				a.setPassword(rs.getString("password"));
+				a.setType(rs.getString("type"));
 				return a;
 			}
 		});
-		Admin admin = null;
-		if (admins != null && admins.size() > 0){
-			admin = admins.get(0);
+		Password r = null;
+		if (res != null && res.size() > 0){
+			r = res.get(0);
 		}
-		return admin;
+		return r;
 	}
-	public void test(){
-		System.out.println(jdbcTemplate);
+
+	@Override
+	public int updateInfo(Admin admin) {
+		String sql="update admin set admin_name=?,admin_phone=? where admin_id=?";
+		return jdbcTemplate.update(sql,admin.getAdminName(), admin.getAdminPhone(), admin.getAdminID());
+	}
+
+	@Override
+	public Admin getInfoByID(String id) {
+		String sql = "select * from admin where admin_id=?";
+		List<Admin> res = jdbcTemplate.query(sql, new Object[] {id}, new RowMapper<Admin>(){
+			@Override
+			public Admin mapRow(ResultSet rs, int num) throws SQLException{
+				Admin a = new Admin();
+				a.setAdminID(rs.getString("admin_id"));
+				a.setAdminName(rs.getString("admin_name"));
+				a.setAdminPhone(rs.getString("admin_phone"));
+				return a;
+			}
+		});
+		Admin r = null;
+		if (res != null && res.size() > 0){
+			r = res.get(0);
+		}
+		return r;
 	}
 }

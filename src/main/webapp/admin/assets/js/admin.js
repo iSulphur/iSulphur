@@ -6,7 +6,7 @@ function login() {
         data: $('form').serialize(),
         success: function (data) {
             if(data == 1){
-            	window.location.href="admin-base-info.html";
+            	window.location.href="current-task.html";
             }
             else {
             	alert("登陆失败！");

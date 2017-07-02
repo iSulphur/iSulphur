@@ -1,5 +1,7 @@
 <html>
 <body>
-<jsp:forward page="admin/login/index.html"></jsp:forward>
+<script>
+window.location.href="admin/login.html";
+</script>
 </body>
 </html>

@@ -2,7 +2,9 @@ package com.sulphur.admin;
 
 
 public interface AdminDao {
-	public int update(Admin admin);
-	public Admin checkLogin(String name, String pass);
-	public void test();
+	public Password checkLogin(String name, String pass);
+	public int updatePass(String name, String pass);
+	
+	public int updateInfo(Admin admin);
+	public Admin getInfoByID(String name);
 }
