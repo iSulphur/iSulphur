@@ -1,5 +1,8 @@
 package com.sulphur.admin;
 
+import java.util.List;
+
+import javax.json.JsonArray;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/admin")
@@ -71,5 +77,45 @@ public class AdminAction {
 			return res;
 		}
 		else return null;
+	}
+	
+	@RequestMapping(value="/team.do")
+	public @ResponseBody String teamManage(@RequestParam("action") String action, HttpServletRequest req){
+		HttpSession session = req.getSession(false);
+		String user = new String();
+		Message msg = new Message();
+		if(session != null){
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
+			int res = adminDao.checkPrivileges(user);
+			// Admin
+			if(res == 0){
+				// list all team
+				if(action == "list"){
+					List<Team> r = adminDao.findAllTeam();
+					JSONArray jsonArray = JSONArray.fromObject(r);
+					msg.setStatusCode(200);
+					msg.setMsgType("info");
+					msg.setMsgContent(jsonArray.toString());
+					return JSONArray.fromObject(msg).toString();
+				}
+				else if (action == "add") {
+					Team team = new Team(req.getParameter("team_id"))
+				}
+			}
+			else{
+				msg.setStatusCode(400);
+				msg.setMsgType("warning");
+				msg.setMsgContent("forbidden!");
+				return JSONArray.fromObject(msg).toString();
+			}
+		}
+		else{
+			msg.setStatusCode(400);
+			msg.setMsgType("warning");
+			msg.setMsgContent("please login as admin.");
+			return JSONArray.fromObject(msg).toString();
+		}
+		return "hhh";
 	}
 }
