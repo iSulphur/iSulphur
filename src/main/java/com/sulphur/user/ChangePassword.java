@@ -1,4 +1,4 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +17,12 @@ import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
 
-@RequestMapping("/password.do")
+@RequestMapping("/user")
 public class ChangePassword {
 
 	Connection conn;
 
-	@RequestMapping("/method")
+	@RequestMapping("/password.do")
 	public @ResponseBody String queren(@RequestParam("currentpassword") String currentpassword, @RequestParam("newpassword") String newpassword, @RequestParam("confirmpassword") String confirmpassword, HttpServletRequest req)
 			throws SQLException {
 		conn = new ConnectMysql().getConnection();

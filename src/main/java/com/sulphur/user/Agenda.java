@@ -1,4 +1,4 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
-@RequestMapping("/agenda.do")
+@RequestMapping("/user")
 public class Agenda {
 
 	private Connection conn;
 
-	@RequestMapping("/method")
+	@RequestMapping("/agenda.do")
 	public @ResponseBody ArrayList<String> getReport(HttpServletRequest req) throws SQLException{
 		
 		ArrayList<String> result = new ArrayList<String>();//返回的结果集

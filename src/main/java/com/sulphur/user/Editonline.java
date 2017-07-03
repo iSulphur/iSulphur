@@ -1,6 +1,10 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
+import java.text.ParseException;  
+import java.text.SimpleDateFormat;  
+import java.util.Calendar;  
+import java.util.Date; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,15 +39,20 @@ public class Editonline {
 	throws SQLException
 	{
 		conn = new ConnectMysql().getConnection();
-	    PreparedStatement cnm=conn.prepareStatement("insert into upload values(?,?,?,?,?,?,?,?)");
-		cnm.setString(1, t_name);
-		cnm.setString(2, p_name);
-		cnm.setString(3, t_leader);
-		cnm.setString(4, telephone);
-		cnm.setString(5, mail);
-		cnm.setString(6, p_progress);
-		cnm.setString(7, harvest);
-		cnm.setString(8, nextaim);
+	    PreparedStatement cnm=conn.prepareStatement("insert into upload values(?,?,?,?,?,?,?,?,?,?)");
+	    Date d = new Date();  //get time and date now
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d-HH-mm-ss");//format 
+        String dateNowStr = sdf.format(d);  //convert to a string
+        cnm.setString(1, (String)req.getSession().getAttribute("ID")+dateNowStr);//use id and date&&time produce a report_id
+	    cnm.setString(2, dateNowStr);//date&&time as a string 
+	    cnm.setString(3, t_name);
+		cnm.setString(4, p_name);
+		cnm.setString(5, t_leader);
+		cnm.setString(6, telephone);
+		cnm.setString(7, mail);
+		cnm.setString(8, p_progress);
+		cnm.setString(9, harvest);
+		cnm.setString(10, nextaim);
 		cnm.executeQuery();
 		cnm.close();
 		
