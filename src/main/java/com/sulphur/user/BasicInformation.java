@@ -1,4 +1,4 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,12 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
-@RequestMapping("/basic")
+@RequestMapping("/user")
 public class BasicInformation {
 
 	private Connection conn;
 	
-	@RequestMapping("/update")
+	@RequestMapping("/basic.do")
 	public @ResponseBody String BasicInformation(@RequestParam("team_name") String team_name,@RequestParam("project") String project, @RequestParam("team_leader") String team_leader,
 			@RequestParam("leader_phone") String leader_phone,@RequestParam("leader_email") String leader_email,HttpServletRequest req){
 		conn = new ConnectMysql().getConnection();

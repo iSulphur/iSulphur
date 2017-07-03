@@ -1,4 +1,4 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,11 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
-@RequestMapping("/view.do")
+@RequestMapping("/user")
 public class ViewReport {
 
 	public Connection conn;
-	@RequestMapping("/method")
+	@RequestMapping("/view.do")
 	public @ResponseBody HashMap<String, String> getReport(HttpServletRequest req) throws SQLException{
 		
 		HashMap<String, String> result = new HashMap<String, String>();//最终返回的结果

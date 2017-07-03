@@ -1,6 +1,7 @@
-package com.sulphur.user.controller;
+package com.sulphur.user;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,18 +17,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sulphur.connectmysql.ConnectMysql;
 
 @Controller
-@RequestMapping("/login.do")
+@RequestMapping("/user")
 public class Login {
 
 	private Connection conn;
 	
-	@RequestMapping("/method")
+	@RequestMapping("/login.do")
 	public @ResponseBody String Login(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest req){
 		
 		conn = new ConnectMysql().getConnection();
 		try {
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(String.format("select * from password where username=\"%s\" and password=\"%s\"", username, password));
+			PreparedStatement ps = conn.prepareStatement("select * from password where username=? and password=?");
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ResultSet rs = ps.executeQuery();
 			//µÇÂ½³É¹¦
 			if(rs.next()){
 				req.getSession().setAttribute("username", username);
