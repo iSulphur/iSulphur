@@ -2,7 +2,7 @@ package com.sulphur.admin;
 
 import java.util.List;
 
-import javax.json.JsonArray;
+//import javax.json.JsonArray;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -100,7 +100,7 @@ public class AdminAction {
 					return JSONArray.fromObject(msg).toString();
 				}
 				else if (action == "add") {
-					Team team = new Team(req.getParameter("team_id"))
+					//Team team = new Team(req.getParameter("team_id"))
 				}
 			}
 			else{

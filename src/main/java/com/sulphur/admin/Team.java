@@ -50,10 +50,10 @@ public class Team {
 		this.teamName = teamName;
 	}
 	public String getProject() {
-		return Project;
+		return project;
 	}
 	public void setProject(String project) {
-		Project = project;
+		this.project = project;
 	}
 	
 	
