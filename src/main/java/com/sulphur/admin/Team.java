@@ -7,6 +7,7 @@ public class Team {
 	private String teamLeader;
 	private String leaderPhone;
 	private String leaderMail;
+	
 	public Team(){
 		
 	}
@@ -50,10 +51,10 @@ public class Team {
 		this.teamName = teamName;
 	}
 	public String getProject() {
-		return Project;
+		return project;
 	}
 	public void setProject(String project) {
-		Project = project;
+		project = project;
 	}
 	
 	

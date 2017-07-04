@@ -3,7 +3,7 @@ package com.sulphur.admin;
 public class Message {
 	private int statusCode;
 	private String msgType;
-	private String msgContent;
+	private Object msgContent;
 	
 	public int getStatusCode() {
 		return statusCode;
@@ -17,10 +17,10 @@ public class Message {
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
-	public String getMsgContent() {
+	public Object getMsgContent() {
 		return msgContent;
 	}
-	public void setMsgContent(String msgContent) {
+	public void setMsgContent(Object msgContent) {
 		this.msgContent = msgContent;
 	}
 }

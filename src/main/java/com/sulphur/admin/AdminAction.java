@@ -80,7 +80,7 @@ public class AdminAction {
 	}
 	
 	@RequestMapping(value="/team.do")
-	public @ResponseBody String teamManage(@RequestParam("action") String action, HttpServletRequest req){
+	public @ResponseBody Message teamManage(@RequestParam("action") String action, HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String user = new String();
 		Message msg = new Message();
@@ -96,11 +96,11 @@ public class AdminAction {
 					JSONArray jsonArray = JSONArray.fromObject(r);
 					msg.setStatusCode(200);
 					msg.setMsgType("info");
-					msg.setMsgContent(jsonArray.toString());
-					return JSONArray.fromObject(msg).toString();
+					msg.setMsgContent(r);
+					return msg;
 				}
 				else if (action == "add") {
-					Team team = new Team(req.getParameter("team_id"))
+					Team team = new Team(req.getParameter("team_id"),req.getParameter("team_name"),req.getParameter("team_id"),req.getParameter("team_id"),req.getParameter("team_id"));
 				}
 			}
 			else{
