@@ -23,7 +23,7 @@
     <h1 class="title">用户登录</h1>
     <form action ="login.do" method="post">
       <div class="input-container">
-        <input  id="yonghu" name="username"/>
+        <input  id="yonghu" name="id"/>
         <label for="{label}">用户名</label>
         <div class="bar"></div>
       </div>

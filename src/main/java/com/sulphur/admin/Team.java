@@ -54,7 +54,7 @@ public class Team {
 		return project;
 	}
 	public void setProject(String project) {
-		project = project;
+		this.project = project;
 	}
 	
 	
