@@ -54,7 +54,7 @@ public class UserDaoImp implements UserDao {
 	}
 	@Override
 	public List<Report> agendaReport(String report_id){
-		String sql="select * from upload where report_id=?";
+		String sql="select * from upload where report_id=? and report_type=0";
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
 		List<Report> reports = jdbcTemplate.query(sql, new Object[]{report_id}, rowMapper);
 		return reports;
