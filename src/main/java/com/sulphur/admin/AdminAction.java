@@ -26,34 +26,43 @@ public class AdminAction {
 	private AdminDao adminDao;
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public @ResponseBody String login(@RequestParam("id") String id,
+	public @ResponseBody Message login(@RequestParam("id") String id,
 			@RequestParam("password") String password, HttpServletRequest req) {
 		Password res = adminDao.checkLogin(id, password);
+		Message msg;
 		if (res != null) {
 			HttpSession session = req.getSession();
 			session.setMaxInactiveInterval(1200);
 			session.setAttribute("admin_id", id);
-			return "1";
+			msg = new Message("1");
 		}
-		return "0";
+		else{
+			msg = new Message("0");
+		}
+		return msg;
 	}
 
 	@RequestMapping(value = "/update_pwd.do", method = RequestMethod.POST)
-	public @ResponseBody String updatePass(@RequestParam("password") String password, HttpServletRequest req) {
+	public @ResponseBody Message updatePass(@RequestParam("password") String password, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		String user = new String();
+		Message msg;
 		if(session != null){
 			user = (String) session.getAttribute("admin_id");
 			Integer res = adminDao.updatePass(user, password);
-			return res.toString();
+			msg = new Message(res.toString());
 		}
-		else return "must login!";
+		else{
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return msg;
 	}
 	
 	@RequestMapping(value="/update_info.do", method = RequestMethod.POST)
-	public @ResponseBody String updateInfo(HttpServletRequest req){
+	public @ResponseBody Message updateInfo(HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String user = new String();
+		Message msg;
 		if(session != null){
 			user = (String) session.getAttribute("admin_id");
 //			user = "sulphur";
@@ -61,61 +70,68 @@ public class AdminAction {
 			String adminPhone = req.getParameter("admin_phone");
 			Admin admin = new Admin(user, adminName, adminPhone);
 			Integer res = adminDao.updateInfo(admin);
-			return res.toString();
+			msg = new Message(res.toString());
 		}
-		else return "must login!";
+		else{
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return msg;
 	}
 	
 	@RequestMapping(value="/get_info.do", method= RequestMethod.GET)
-	public @ResponseBody Admin getInfo(HttpServletRequest req){
+	public @ResponseBody Message getInfo(HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String user = new String();
+		Message msg;
 		if(session != null){
 			user = (String) session.getAttribute("admin_id");
 //			user = "sulphur";
 			Admin res = adminDao.getInfoByID(user);
-			return res;
-		}
-		else return null;
-	}
-	
-	@RequestMapping(value="/team.do")
-	public @ResponseBody Message teamManage(@RequestParam("action") String action, HttpServletRequest req){
-		HttpSession session = req.getSession(false);
-		String user = new String();
-		Message msg = new Message();
-		if(session != null){
-			user = (String) session.getAttribute("admin_id");
-//			user = "sulphur";
-			int res = adminDao.checkPrivileges(user);
-			// Admin
-			if(res == 0){
-				// list all team
-				if(action == "list"){
-					List<Team> r = adminDao.findAllTeam();
-					JSONArray jsonArray = JSONArray.fromObject(r);
-					msg.setStatusCode(200);
-					msg.setMsgType("info");
-					msg.setMsgContent(r);
-					return msg;
-				}
-				else if (action == "add") {
-					Team team = new Team(req.getParameter("team_id"),req.getParameter("team_name"),req.getParameter("team_id"),req.getParameter("team_id"),req.getParameter("team_id"));
-				}
-			}
-			else{
-				msg.setStatusCode(400);
-				msg.setMsgType("warning");
-				msg.setMsgContent("forbidden!");
-				return JSONArray.fromObject(msg).toString();
-			}
+			msg = new Message(res);
 		}
 		else{
-			msg.setStatusCode(400);
-			msg.setMsgType("warning");
-			msg.setMsgContent("please login as admin.");
-			return JSONArray.fromObject(msg).toString();
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
 		}
-		return "hhh";
+		return msg;
 	}
+	
+//	@RequestMapping(value="/team.do")
+//	public @ResponseBody Message teamManage(@RequestParam("action") String action, HttpServletRequest req){
+//		HttpSession session = req.getSession(false);
+//		String user = new String();
+//		Message msg = new Message();
+//		if(session != null){
+//			user = (String) session.getAttribute("admin_id");
+////			user = "sulphur";
+//			int res = adminDao.checkPrivileges(user);
+//			// Admin
+//			if(res == 0){
+//				// list all team
+//				if(action == "list"){
+//					List<Team> r = adminDao.findAllTeam();
+//					JSONArray jsonArray = JSONArray.fromObject(r);
+//					msg.setStatusCode(200);
+//					msg.setMsgType("info");
+//					msg.setMsgContent(r);
+//					return msg;
+//				}
+//				else if (action == "add") {
+//					Team team = new Team(req.getParameter("team_id"),req.getParameter("team_name"),req.getParameter("team_id"),req.getParameter("team_id"),req.getParameter("team_id"));
+//				}
+//			}
+//			else{
+//				msg.setStatusCode(400);
+//				msg.setMsgType("warning");
+//				msg.setMsgContent("forbidden!");
+//				return JSONArray.fromObject(msg).toString();
+//			}
+//		}
+//		else{
+//			msg.setStatusCode(400);
+//			msg.setMsgType("warning");
+//			msg.setMsgContent("please login as admin.");
+//			return JSONArray.fromObject(msg).toString();
+//		}
+//		return "hhh";
+//	}
 }
