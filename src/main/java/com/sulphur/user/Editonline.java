@@ -33,7 +33,7 @@ public class Editonline {
 	
 	@RequestMapping(value="/upload",method=RequestMethod.GET)
 	
-	public String upload( HttpServletRequest req,@RequestParam("团 队 名 称 ")String t_name,@RequestParam("项 目 名 称 ") String p_name,
+	public @ResponseBody String upload( HttpServletRequest req,@RequestParam("团 队 名 称 ")String t_name,@RequestParam("项 目 名 称 ") String p_name,
 			@RequestParam("团队负责人：") String t_leader,@RequestParam("联 系 电 话 ：") String telephone,@RequestParam("联 系 邮 箱 ：") String mail,
 			@RequestParam("项 目 进 展 ：") String p_progress,@RequestParam("已取得的阶段性成果：") String harvest,@RequestParam("下一阶段项目计划及时间安排：") String nextaim)
 	throws SQLException
