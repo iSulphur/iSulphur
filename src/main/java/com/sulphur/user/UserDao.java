@@ -11,7 +11,9 @@ public interface UserDao {
 	
 	public int updatePassword(String id, String password);
 	
-	public List<Report> agendaReport(String report_id);
+	public List<Report> agendaReport(String user_id);
 	
 	public int insertReport(Report report);
+	
+	public List<Report> viewReport(String user_id);
 }
