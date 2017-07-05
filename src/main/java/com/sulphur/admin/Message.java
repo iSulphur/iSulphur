@@ -31,10 +31,10 @@ public class Message {
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
-	public String getMsgType() {
+	public String getMsgHead() {
 		return msgHead;
 	}
-	public void setMsgType(String msgHead) {
+	public void setMsgHead(String msgHead) {
 		this.msgHead = msgHead;
 	}
 	public Object getMsgContent() {
