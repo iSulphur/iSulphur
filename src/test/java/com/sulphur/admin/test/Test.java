@@ -5,9 +5,9 @@ public class Test {
 //        String s=HttpRequest.sendGet("http://localhost:6144/Home/RequestString", "key=123&v=456");
 //        System.out.println(s);
         
-        //·¢ËÍ POST ÇëÇó
+        //ï¿½ï¿½ï¿½ï¿½ POST ï¿½ï¿½ï¿½ï¿½
 		
-		String sr0=HttpRequest.sendPost("http://localhost:8080/iSulphur/admin/update_info.do", "admin_name=Mads&admin_phone=18888888888");
+		String sr0=HttpRequest.sendPost("http://localhost:8080/iSulphur/admin/update_pwd.do", "password=123");
 		System.out.println(sr0);
 //		String sr1=HttpRequest.sendPost("http://localhost:8080/iSulphur/admin/update_pwd.do", "password=123");
 //        System.out.println(sr1);

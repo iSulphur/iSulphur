@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -91,53 +92,34 @@ public class AdminDaoImp implements AdminDao {
 	}
 	@Override
 	public int addTeam(Team team) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "insert into team values(?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql,new Object[]{team.getTeamID(),team.getTeamName(),team.getProject(),team.getTeamLeader(),team.getLeaderPhone(),team.getLeaderMail()});
 	}
 	@Override
 	public int delTeam(String teamID) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "delete from team where team_id=?";
+		return jdbcTemplate.update(sql,new Object[]{teamID});
 	}
 	@Override
 	public int updateTeam(Team team) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "update team set team_name=?,project=?,team_leader=?,leader_phone=?,leader_mail=? where team_id=?";
+		return jdbcTemplate.update(sql,new Object[]{team.getTeamName(),team.getProject(),team.getTeamLeader(),team.getLeaderPhone(),team.getLeaderMail(),team.getTeamID()});
 	}
 	@Override
-	public Team findTeamById(String teamID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public ArrayList<Teacher> findAllTeacher() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int addTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int delTeacher(String teacherID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int updateTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public Teacher findTeacherById(String teacherID) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> findTeamById(String teamID) {
+		String sql = "select * from team where team_id=?";
+		Map<String,Object> res = jdbcTemplate.queryForMap(sql, teamID);
+		if(res != null){			
+			return res;
+		}
+		else{
+			return null;
+		}
 	}
 	@Override
 	public int checkPrivileges(String user) {
 		String sql = "select type from password where id=?";
-		int res = jdbcTemplate.queryForObject(sql, Integer.class);
+		int res = jdbcTemplate.queryForObject(sql,Integer.class,new Object[]{user});
 		return res;
 	}
 }

@@ -19,16 +19,15 @@ function login() {
 function updatapwd(){
 	$.ajax({
 		type:"post",
-		url:"",
-		data:"passwprd="+pwd.val(),
+		url:"/iSulphur/admin/update_pwd.do",
+		data:"password="+pwd.val(),
 		success:function(data)
 		{
-			
 			if(data==1)
-			alert("添加成功");
+			alert("修改成功");
 			else
 			{
-				alert("添加失败");
+				alert("修改失败");
 			}
 		}
 	});
