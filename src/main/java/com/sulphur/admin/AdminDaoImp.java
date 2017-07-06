@@ -2,7 +2,9 @@ package com.sulphur.admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,5 +65,61 @@ public class AdminDaoImp implements AdminDao {
 			r = res.get(0);
 		}
 		return r;
+	}
+	@Override
+	public List<Team> findAllTeam() {
+		String sql = "select * from team";
+		List<Team> res = jdbcTemplate.query(sql, new RowMapper<Team>(){
+			@Override
+			public Team mapRow(ResultSet rs, int num) throws SQLException{
+				Team a = new Team();
+				a.setTeamID(rs.getString("team_id"));
+				a.setTeamName(rs.getString("team_name"));
+				a.setTeamLeader(rs.getString("team_leader"));
+				a.setProject(rs.getString("project"));
+				a.setLeaderPhone(rs.getString("leader_phone"));
+				a.setLeaderMail(rs.getString("leader_mail"));
+				return a;
+			}
+		});
+		if(res != null){			
+			return res;
+		}
+		else{
+			return null;
+		}
+			
+	}
+	@Override
+	public int addTeam(Team team) {
+		String sql = "insert into team values(?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql,new Object[]{team.getTeamID(),team.getTeamName(),team.getProject(),team.getTeamLeader(),team.getLeaderPhone(),team.getLeaderMail()});
+	}
+	@Override
+	public int delTeam(String teamID) {
+		String sql = "delete from team where team_id=?";
+		return jdbcTemplate.update(sql,new Object[]{teamID});
+	}
+	@Override
+	public int updateTeam(Team team) {
+		String sql = "update team set team_name=?,project=?,team_leader=?,leader_phone=?,leader_mail=? where team_id=?";
+		return jdbcTemplate.update(sql,new Object[]{team.getTeamName(),team.getProject(),team.getTeamLeader(),team.getLeaderPhone(),team.getLeaderMail(),team.getTeamID()});
+	}
+	@Override
+	public Map<String, Object> findTeamById(String teamID) {
+		String sql = "select * from team where team_id=?";
+		Map<String,Object> res = jdbcTemplate.queryForMap(sql, teamID);
+		if(res != null){			
+			return res;
+		}
+		else{
+			return null;
+		}
+	}
+	@Override
+	public int checkPrivileges(String user) {
+		String sql = "select type from password where id=?";
+		int res = jdbcTemplate.queryForObject(sql,Integer.class,new Object[]{user});
+		return res;
 	}
 }
