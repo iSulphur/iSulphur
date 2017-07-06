@@ -16,3 +16,39 @@ function login() {
     });
     return false;
 }
+function adduser(){
+	$.ajax({
+		type:"post",
+		url:"",
+		data:"passwprd="+pwd.val(),
+		success:function(data)
+		{
+			
+			if(data==1)
+			alert("添加成功");
+			else
+			{
+				alert("添加失败");
+			}
+		}
+	});
+
+}
+function updatapwd(){
+	$.ajax({
+		type:"post",
+		url:"",
+		data="passwprd="+pwd.val(),
+		success:function(data)
+		{
+			
+			if(data==1)
+			alert("添加成功");
+			else
+			{
+				alert("添加失败");
+			}
+		}
+	});
+
+}

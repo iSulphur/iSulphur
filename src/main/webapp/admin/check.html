@@ -18,7 +18,7 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
+    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
     <link href="assets/css/new.css" rel="stylesheet" />
     <script type="text/javascript">
     	function delayURL(url,time){
@@ -27,7 +27,7 @@
     </script>
 </head>
 <body>
-   <div id="wrapper">
+    <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -52,12 +52,12 @@
 </li> 
 <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>　退　　出</a>
 </li>
-</ul> 
-                 <nav class="navbar-default navbar-side" role="navigation">
+</ul>
+                <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                 	<li>
-                        <a href="current-task.html" class="waves-dark waves-effect"><i class="fa fa-qrcode"></i>当前任务</a>
+                        <a href="current-task.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i>当前任务</a>
                     </li>
 
                     <li>
@@ -79,18 +79,18 @@
                         <a href="user-manage.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 团队管理</a>
                     </li>
                     <li>
-                        <a href="teacher-manage.html" class="active-menu waves-effect waves-dark"><i class="fa fa-qrcode"></i> 导师管理</a>
+                        <a href="teacher-manage.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 导师管理</a>
                     </li>
                     <li>
-                        <a href="admin-base-info.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 基本信息</a>
-                        <ul class="nav nav-second-level">
+                        <a href="admin-base-info.html" class="active-menu waves-dark"><i class="fa fa-dashboard"></i> 基本信息</a>
+                        <ul class="nav nav-second-level collapse in">
 								<li>
 									<a href="admin-base-info.html">查看信息</a>
 								</li>
 								<li>
-									<a href="check.html">修改信息</a>
+									<a href="check.html"  style="color: white";>修改信息</a>
 								</li>
-						</ul>
+							</ul>
                     </li>
                     <li>
                         <a class="waves-effect waves-dark" href="change-password.html"><i class="fa fa-fw fa-file"></i>修改密码</a>
@@ -108,35 +108,40 @@
 
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
+   <div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                            修改导师信息 
+                            管理员信息 
                         </h1>
 		  </div>
 			<div id="page-inner"> 
                     <div class="col-md-12">
                     	<div class="card">
                     		<div class="card-content">
-                        <form class="a">
-                        	<p>导师名：</p>
-                        	<input type="text" placeholder="输入团队名称"></input>                        
-                        	<p>密 码 ：</p>
-                        	<input type="text" placeholder="输入密码"></input>
-                        	<div>
-                        	<input type="submit" value="提交"  name="submit"/>
-                        	<input type="reset" value="重置"  name="reset" />
-                        	</div>
-		
-		                </form>
-						</div>
-                    	</div>
-                    </div>
+          <!-- Text input-->
+          <p><span style="color:red">*</span>管理员名称:</p>
+          <div>
+            <input type="text" placeholder="输入管理员名称" class="b">
+          </div>
+          
+          <!-- Text input-->
+          <p><span style="color:red">*</span>联 系 电 话 :</p>
+          <div>
+            <input type="text" placeholder="输入联系电话">
+          </div>
+          <!-- Text input-->
+          <p><span style="color:red">*</span>联 系 邮 箱 :</p>
+          <div>
+            <input type="text" placeholder="输入联系电话">
+          </div>
+        <a class="waves-effect waves-light btn">确认</a>
+				</div>
 			</div>
-        </div>
+   </div>
+   </div>
+   </div>
              <!-- /. PAGE INNER  -->
      <!-- /. WRAPPER  -->
-      
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
