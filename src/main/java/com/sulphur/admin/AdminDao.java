@@ -3,6 +3,7 @@ package com.sulphur.admin;
 import java.util.List;
 import java.util.Map;
 import com.sulphur.user.Report;
+import com.sulphur.teacher.Review;
 
 public interface AdminDao {
 	// Login
@@ -29,5 +30,6 @@ public interface AdminDao {
 	
 	// Report management
 	public List<Report> findAllReport();
-	
+	public Review findReview(String reportID);
+	public int addResult(Result r);
 }

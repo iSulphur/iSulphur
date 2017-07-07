@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import com.sulphur.teacher.Review;
 import com.sulphur.user.Report;
 
 @Service
@@ -148,5 +149,15 @@ public class AdminDaoImp implements AdminDao {
 	public List<Report> findAllReport() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public Review findReview(String reportID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int addResult(Result r) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
