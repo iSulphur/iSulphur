@@ -1,6 +1,7 @@
 package com.sulphur.teacher;
 
 import java.util.List;
+import java.util.Map;
 
 //import javax.json.JsonArray;
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sulphur.admin.Password;
+import com.sulphur.admin.Team;
 import com.sulphur.user.Report;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 
+import com.sulphur.admin.Message;
 import java.util.Date; 
 import java.util.Calendar; 
 import java.text.SimpleDateFormat; 
@@ -33,35 +36,74 @@ public class TeacherAction {
 	private TeacherDao teacherdao;
 	
 	@RequestMapping(value = "/choose.do", method = RequestMethod.POST)
-	public @ResponseBody Report show_choose(HttpServletRequest req) 
+	public @ResponseBody Message show_choose(HttpServletRequest req) 
 	{
-		HttpSession session = req.getSession(false);
-		String repp=session.getAttribute("Report_id").toString();
+		Message message;
+		String repp=req.getParameter("report_id");
 		Report a=teacherdao.choose(repp);
-		return a;
+		message=new Message(Message.SULPHUR,"OK",a);
+		return message;
 	}
 	
 	@RequestMapping(value = "/show.do", method = RequestMethod.POST)
-	public @ResponseBody List<Report> show_all()
+	public @ResponseBody Message show_all()
 	{
 		List<Report> result = teacherdao.showReport();
-		if(result.isEmpty())return null;
-		else return result;
+		if(result.isEmpty())return new Message(Message.ERROR,"none",null);
+		else return new Message(Message.SULPHUR,"success",result);
 	}
 	
 	@RequestMapping(value = "/review.do", method =RequestMethod.POST)
-	public @ResponseBody String reviewreport(@RequestParam("ranking")String ranking,@RequestParam("suggest")String suggest,HttpServletRequest req )
+	public @ResponseBody Message reviewreport(@RequestParam("ranking")String ranking,@RequestParam("suggest")String suggest,HttpServletRequest req )
 	{
-		HttpSession session = req.getSession(false);
-		Date now = new Date(); 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");//可以方便地修改日期格式
-		String hehe = dateFormat.format( now ); //获取当前时间
-		String csysb=session.getAttribute("report_id").toString();
-		String dhssb=csysb+hehe;
-		int a=teacherdao.review(csysb,dhssb,ranking,suggest);
-		if(a==1)return "success";
-		else return "fail";
+		String csysb=req.getParameter("report_id");
+		int a=teacherdao.review(csysb,ranking,suggest);
+		Message msg = null;
+		if(a==1)msg= new Message(Message.SULPHUR,"success",1);
+		else if(a==0)msg= new Message(Message.SULPHUR,"update_error",0);
+		else if(a==-1)msg= new Message(Message.SULPHUR,"review_error",-1);
+		return msg;
+		
 	}
 	
+	@RequestMapping(value="/review_manager.do")
+	public @ResponseBody Message reportManage(HttpServletRequest req){
+		String action = req.getParameter("action");
+		Message msg;
+			if(action == null || action.equals("")){
+				msg = new Message(Message.WARNING, "No Action", "Please provide what action to do.");
+			}
+			else if(action.equals("findall")){
+				List<Report> r = teacherdao.disuploadReview();
+				// form response message
+				if(r != null){
+					msg = new Message(r);
+				}
+				else{
+					msg = new Message(Message.WARNING, "No disuploadReport", "No disuploadRoprt Found!");
+				}
+			}
+			else if (action.equals("update")){
+				String report_id=req.getParameter("report_id");
+				String ranking = req.getParameter("ranking");
+				String suggest = req.getParameter("suggest");
+				// some check
+				int r = teacherdao.review(report_id, ranking, suggest);
+				msg = new Message(r);
+			}
+			else if (action.equals("upload")){
+				String report_id=req.getParameter("report_id");
+				String ranking = req.getParameter("ranking");
+				String suggest = req.getParameter("suggest");
+				// some check
+				int r = teacherdao.review1(report_id, ranking, suggest);
+				msg = new Message(r);
+			}
+			
+			else{
+				msg = new Message(Message.WARNING, "Unkown Action.", action);
+			}
+			return msg;//
+			}
 	
 }
