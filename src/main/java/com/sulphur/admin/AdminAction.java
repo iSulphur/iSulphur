@@ -135,7 +135,7 @@ public class AdminAction {
 					int r = adminDao.delTeam(teamID);
 					msg = new Message(r);
 				}
-				else if (action.equals("update")){
+				else if (action.equals("update_info")){
 					String teamID = req.getParameter("team_id");
 					String teamName = req.getParameter("team_name");
 					String project = req.getParameter("project");

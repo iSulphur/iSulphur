@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import com.sulphur.user.Report;
+
 @Service
 public class AdminDaoImp implements AdminDao {
 	
@@ -121,5 +123,30 @@ public class AdminDaoImp implements AdminDao {
 		String sql = "select type from password where id=?";
 		int res = jdbcTemplate.queryForObject(sql,Integer.class,new Object[]{user});
 		return res;
+	}
+	@Override
+	public List<ReportTask> findAllCurrentTask() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<ReportTask> findAllHistoryTask() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int setTaskStatus(TaskStatus status) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int addNewTask(ReportTask t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public List<Report> findAllReport() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
