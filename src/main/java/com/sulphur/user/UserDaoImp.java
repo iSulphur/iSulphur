@@ -53,7 +53,7 @@ public class UserDaoImp implements UserDao {
 	}
 	@Override
 	public List<Report> agendaReport(String user_id){
-		String sql="select * from upload where team_name in (select team_name from team where team_id =?) and report_type=0";
+		String sql="select * from report where team_name in (select team_name from team where team_id =?) and upload_status=0";
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
 		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
 		return reports;
@@ -61,14 +61,14 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public int insertReport(Report report){
 
-		String sql="insert upload values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0");
 	}
 	
 	@Override
 	public List<Report> viewReport(String user_id){
 		
-		String sql="select * from upload where team_name in(select team_name form team where team_id=?) and report_type=1";
+		String sql="select * from report where team_name in(select team_name form team where team_id=?) and upload_status=1";
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
 		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
 		return reports;

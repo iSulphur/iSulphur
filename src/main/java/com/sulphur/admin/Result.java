@@ -4,6 +4,15 @@ public class Result {
 	private String reportID;
 	private String finalResult;
 	
+	public Result(){
+		
+	}
+	
+	public Result(String id, String finalRes){
+		reportID = id;
+		finalResult = finalRes;
+	}
+	
 	public String getReportID() {
 		return reportID;
 	}

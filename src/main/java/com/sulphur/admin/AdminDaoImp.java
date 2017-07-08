@@ -2,11 +2,11 @@ package com.sulphur.admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -85,13 +85,7 @@ public class AdminDaoImp implements AdminDao {
 				return a;
 			}
 		});
-		if(res != null){			
-			return res;
-		}
-		else{
-			return null;
-		}
-			
+		return res;
 	}
 	@Override
 	public int addTeam(Team team) {
@@ -112,12 +106,7 @@ public class AdminDaoImp implements AdminDao {
 	public Map<String, Object> findTeamById(String teamID) {
 		String sql = "select * from team where team_id=?";
 		Map<String,Object> res = jdbcTemplate.queryForMap(sql, teamID);
-		if(res != null){			
-			return res;
-		}
-		else{
-			return null;
-		}
+		return res;
 	}
 	@Override
 	public int checkPrivileges(String user) {
@@ -127,37 +116,69 @@ public class AdminDaoImp implements AdminDao {
 	}
 	@Override
 	public List<ReportTask> findAllCurrentTask() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from report_task where task_status <> 600";
+		List<ReportTask> res = jdbcTemplate.query(sql, new RowMapper<ReportTask>(){
+			@Override
+			public ReportTask mapRow(ResultSet rs, int num) throws SQLException{
+				ReportTask a = new ReportTask();
+				a.setReportTaskID(rs.getString("report_task_id"));
+				a.setTaskProperty(rs.getString("task_property"));
+				a.setBeginTime(rs.getString("begin_time"));
+				a.setEndTime(rs.getString("end_time"));
+				a.setMaxSubmitTime(rs.getInt("max_submit_time"));
+				a.setTaskRemake(rs.getString("task_remake"));
+				a.setTaskStatus(rs.getInt("task_status"));
+				return a;
+			}
+		});
+		return res;
 	}
 	@Override
 	public List<ReportTask> findAllHistoryTask() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from report_task where task_status = 600";
+		List<ReportTask> res = jdbcTemplate.query(sql, new RowMapper<ReportTask>(){
+			@Override
+			public ReportTask mapRow(ResultSet rs, int num) throws SQLException{
+				ReportTask a = new ReportTask();
+				a.setReportTaskID(rs.getString("report_task_id"));
+				a.setTaskProperty(rs.getString("task_property"));
+				a.setBeginTime(rs.getString("begin_time"));
+				a.setEndTime(rs.getString("end_time"));
+				a.setMaxSubmitTime(rs.getInt("max_submit_time"));
+				a.setTaskRemake(rs.getString("task_remake"));
+				a.setTaskStatus(rs.getInt("task_status"));
+				return a;
+			}
+		});
+		return res;
 	}
 	@Override
-	public int setTaskStatus(TaskStatus status) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int setTaskStatus(String id, int status) {
+		String sql="update report_task set task_status=? where report_task_id=?";
+		return jdbcTemplate.update(sql,new Object[]{id, status});
 	}
 	@Override
 	public int addNewTask(ReportTask t) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "insert into team values(?,?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql,new Object[]{t.getReportTaskID(),t.getTaskProperty(),t.getBeginTime(),t.getEndTime(),t.getMaxSubmitTime(),t.getTaskRemake(),t.getTaskStatus()});
 	}
 	@Override
 	public List<Report> findAllReport() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="select * from report";
+		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
+		List<Report> reports = jdbcTemplate.query(sql, rowMapper);
+		return reports;
 	}
 	@Override
 	public Review findReview(String reportID) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from review where report_id=?";
+		RowMapper<Review> rowMapper=new BeanPropertyRowMapper<>(Review.class);
+		List<Review> reviews = jdbcTemplate.query(sql, new Object[]{reportID}, rowMapper);
+		return reviews.get(0);
 	}
 	@Override
 	public int addResult(Result r) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "insert into result values(?,?,?)";
+		return jdbcTemplate.update(sql, new Object[]{r.getReportID(),r.getFinalResult()});
 	}
 }

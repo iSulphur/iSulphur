@@ -7,7 +7,21 @@ public class ReportTask {
 	private String endTime;
 	private int maxSubmitTime;
 	private String taskRemake;
-	private TaskStatus taskStatus;
+	private int taskStatus;
+	
+	public ReportTask(String rTI, String tP, String bT, String eT, int mST, String tR, int tS){
+		reportTaskID = rTI;
+		taskProperty = tP;
+		beginTime = bT;
+		endTime = eT;
+		maxSubmitTime = mST;
+		taskRemake = tR;
+		taskStatus = tS;
+	}
+	
+	public ReportTask(){
+		
+	}
 	
 	public String getReportTaskID() {
 		return reportTaskID;
@@ -45,10 +59,10 @@ public class ReportTask {
 	public void setTaskRemake(String taskRemake) {
 		this.taskRemake = taskRemake;
 	}
-	public TaskStatus getTaskStatus() {
+	public int getTaskStatus() {
 		return taskStatus;
 	}
-	public void setTaskStatus(TaskStatus taskStatus) {
+	public void setTaskStatus(int taskStatus) {
 		this.taskStatus = taskStatus;
 	}
 	

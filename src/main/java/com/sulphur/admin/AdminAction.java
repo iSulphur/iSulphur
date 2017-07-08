@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sulphur.teacher.Review;
+import com.sulphur.user.Report;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminAction {
@@ -168,4 +171,135 @@ public class AdminAction {
 		return msg;
 	}
 
+	// Task action
+	@RequestMapping(value="/task.do")
+	public @ResponseBody Message taskAction(HttpServletRequest req){
+		String action = req.getParameter("action");
+		HttpSession session = req.getSession(false);
+		String user = new String();
+		Message msg;
+		if(session != null){
+//			user = (String) session.getAttribute("admin_id");
+			user = "sulphur";
+			int res = adminDao.checkPrivileges(user);
+			if(res == 0){
+				// list all current tasks
+				if(action == null || action.equals("")){
+					msg = new Message(Message.WARNING, "No Action", "Please provide what action to do.");
+				}
+				else if(action.equals("findcur")){
+					List<ReportTask> r = adminDao.findAllCurrentTask();
+					// form response message
+					if(r != null){
+						msg = new Message(r);
+					}
+					else{
+						msg = new Message(Message.WARNING, "No Current Task", "No Task Found!");
+					}
+				}
+				// list all history tasks
+				else if (action.equals("findhis")) {
+					List<ReportTask> r = adminDao.findAllHistoryTask();
+					if(r != null){
+						msg = new Message(r);
+					}
+					else{
+						msg = new Message(Message.WARNING, "No History Task", "No Task Found!");
+					}
+				}
+				// set status
+				else if (action.equals("set_status")) {
+					String id = req.getParameter("report_task_id");
+					int status = Integer.parseInt(req.getParameter("task_status"));
+					int r = adminDao.setTaskStatus(id, status);
+					msg = new Message(r);
+				}
+				// add new
+				else if (action.equals("add")){
+					String rTI = req.getParameter("report_task_id");
+					String tP = req.getParameter("task_property");
+					String bT = req.getParameter("begin_time");
+					String eT = req.getParameter("end_time");
+					int mST = Integer.parseInt(req.getParameter("max_submit_time"));
+					String tR = req.getParameter("task_remake");
+					int status = Integer.parseInt(req.getParameter("task_status"));
+					// some check
+					ReportTask t = new ReportTask(rTI,tP,bT,eT,mST,tR,status);
+					int r = adminDao.addNewTask(t);
+					msg = new Message(r);
+				}
+				else{
+					msg = new Message(Message.WARNING, "Unkown Action.", action);
+				}
+				//
+			}
+			else{
+				msg = new Message(Message.ERROR, "Forbidden", "Permission denied!");
+			}
+		}
+		else{
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return msg;
+	}
+	
+	// Report action
+	@RequestMapping(value="/report.do")
+	public @ResponseBody Message reportAction(HttpServletRequest req){
+		String action = req.getParameter("action");
+		HttpSession session = req.getSession(false);
+		String user = new String();
+		Message msg;
+		if(session != null){
+//			user = (String) session.getAttribute("admin_id");
+			user = "sulphur";
+			int res = adminDao.checkPrivileges(user);
+			if(res == 0){
+				if(action == null || action.equals("")){
+					msg = new Message(Message.WARNING, "No Action", "Please provide what action to do.");
+				}
+				// find all report
+				else if(action.equals("findall")){
+					List<Report> r = adminDao.findAllReport();
+					// form response message
+					if(r != null){
+						msg = new Message(r);
+					}
+					else{
+						msg = new Message(Message.WARNING, "No Report", "No Report Found!");
+					}
+				}
+				// find review
+				else if (action.equals("findrev")) {
+					String reportID = req.getParameter("report_id");
+					Review r = adminDao.findReview(reportID);
+					if(r != null){
+						msg = new Message(r);
+					}
+					else{
+						msg = new Message(Message.WARNING, "No Review", "No Review Found!");
+					}
+				}
+				// add result
+				else if (action.equals("add_result")){
+					String rI = req.getParameter("report_id");
+					String fR = req.getParameter("final_result");
+					Result result = new Result(rI, fR);
+					int r = adminDao.addResult(result);
+					msg = new Message(r);
+				}
+				else{
+					msg = new Message(Message.WARNING, "Unkown Action.", action);
+				}
+				//
+			}
+			else{
+				msg = new Message(Message.ERROR, "Forbidden", "Permission denied!");
+			}
+		}
+		else{
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return msg;
+	}
 }

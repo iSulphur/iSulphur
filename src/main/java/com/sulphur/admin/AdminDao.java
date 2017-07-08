@@ -25,7 +25,7 @@ public interface AdminDao {
 	// Report task management
 	public List<ReportTask> findAllCurrentTask();
 	public List<ReportTask> findAllHistoryTask();
-	public int setTaskStatus(TaskStatus status);
+	public int setTaskStatus(String id, int status);
 	public int addNewTask(ReportTask t);
 	
 	// Report management
