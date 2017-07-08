@@ -19,7 +19,11 @@ public interface TeacherDao
 	//choose
 	public Report choose(String report_id);
 	
-	public List<Report> disuploadReview(); 
+	public List<Review> disuploadReview();
 	
-
+	public List<Review> uploadReview();
+	
+	public int updatereview(String ranking,String suggest,String Review_id);
+	
+	public int uploadreview(String ranking,String suggest,String Review_id);
 }
