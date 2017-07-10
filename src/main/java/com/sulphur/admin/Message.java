@@ -2,8 +2,28 @@ package com.sulphur.admin;
 
 public class Message {
 	private int statusCode;
-	private String msgType;
-	private String msgContent;
+	private String msgHead;
+	private Object msgContent;
+	
+	public static final int SULPHUR = 200;
+	public static final int WARNING = 300;
+	public static final int ERROR = 400;
+	
+	public Message(){
+		
+	}
+	
+	public Message(Object msgContent){
+		this.statusCode = Message.SULPHUR;
+		this.msgHead = "INFO";
+		this.msgContent = msgContent;
+	}
+	
+	public Message(int status_code, String msgHead, Object msgContent){
+		this.statusCode = status_code;
+		this.msgHead = msgHead;
+		this.msgContent = msgContent;
+	}
 	
 	public int getStatusCode() {
 		return statusCode;
@@ -11,16 +31,16 @@ public class Message {
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
-	public String getMsgType() {
-		return msgType;
+	public String getMsgHead() {
+		return msgHead;
 	}
-	public void setMsgType(String msgType) {
-		this.msgType = msgType;
+	public void setMsgHead(String msgHead) {
+		this.msgHead = msgHead;
 	}
-	public String getMsgContent() {
+	public Object getMsgContent() {
 		return msgContent;
 	}
-	public void setMsgContent(String msgContent) {
+	public void setMsgContent(Object msgContent) {
 		this.msgContent = msgContent;
 	}
 }

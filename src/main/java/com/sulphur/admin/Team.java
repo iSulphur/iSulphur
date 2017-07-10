@@ -7,6 +7,7 @@ public class Team {
 	private String teamLeader;
 	private String leaderPhone;
 	private String leaderMail;
+	
 	public Team(){
 		
 	}

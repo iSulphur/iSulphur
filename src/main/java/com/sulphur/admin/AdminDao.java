@@ -1,6 +1,9 @@
 package com.sulphur.admin;
 
 import java.util.List;
+import java.util.Map;
+import com.sulphur.user.Report;
+import com.sulphur.teacher.Review;
 
 public interface AdminDao {
 	// Login
@@ -17,12 +20,16 @@ public interface AdminDao {
 	public int addTeam(Team team);
 	public int delTeam(String teamID);
 	public int updateTeam(Team team);
-	public Team findTeamById(String teamID);
+	public Map<String, Object> findTeamById(String teamID);
 	
-	//Teacher Management
-	public List<Teacher> findAllTeacher();
-	public int addTeacher(Teacher teacher);
-	public int delTeacher(String teacherID);
-	public int updateTeacher(Teacher teacher);
-	public Teacher findTeacherById(String teacherID);
+	// Report task management
+	public List<ReportTask> findAllCurrentTask();
+	public List<ReportTask> findAllHistoryTask();
+	public int setTaskStatus(String id, int status);
+	public int addNewTask(ReportTask t);
+	
+	// Report management
+	public List<Report> findAllReport();
+	public Review findReview(String reportID);
+	public int addResult(Result r);
 }

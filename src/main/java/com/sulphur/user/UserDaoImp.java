@@ -2,7 +2,6 @@ package com.sulphur.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,7 +42,7 @@ public class UserDaoImp implements UserDao {
 
 	@Override
 	public int updateTeam(String team_name, String project, String team_leader, String leader_phone, String leader_email, String team_id){
-		String sql="update team set team_name = ?, project = ?, team_leader = ?, leader_phone = ?, leader_email =? where team_id = ?";
+		String sql="update team set team_name = ?, project = ?, team_leader = ?, leader_phone = ?, leader_mail =? where team_id = ?";
 		return jdbcTemplate.update(sql,team_name,project, team_leader, leader_phone, leader_email, team_id);
 	}
 	
@@ -53,15 +52,25 @@ public class UserDaoImp implements UserDao {
 		return jdbcTemplate.update(sql, password, id);
 	}
 	@Override
-	public List<Report> agendaReport(String report_id){
-		String sql="select * from upload where report_id=?";
+	public List<Report> agendaReport(String user_id){
+		String sql="select * from report where team_name in (select team_name from team where team_id =?) and upload_status=0";
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
-		List<Report> reports = jdbcTemplate.query(sql, new Object[]{report_id}, rowMapper);
+		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
 		return reports;
 	}
 	@Override
 	public int insertReport(Report report){
-		String sql="insert upload values(?,?,?,?,?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getProgress(), report.getHarvest(), report.getNext_aim());
+
+		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0");
+	}
+	
+	@Override
+	public List<Report> viewReport(String user_id){
+		
+		String sql="select * from report where team_name in(select team_name form team where team_id=?) and upload_status=1";
+		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
+		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
+		return reports;
 	}
 }

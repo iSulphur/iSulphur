@@ -1,5 +1,7 @@
 package com.sulphur.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sulphur.admin.Message;
 import com.sulphur.admin.Password;
 
 @Controller
@@ -21,71 +25,129 @@ public class UserAction {
 	private UserDao userDao;
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public @ResponseBody String login(@RequestParam("id") String id, @RequestParam("password") String password,
+	public @ResponseBody Message login(@RequestParam("id") String id, @RequestParam("password") String password,
 			HttpServletRequest req) {
 		Password res = userDao.checkLogin(id, password);
+		Message message;
 		if (res != null) {
 			HttpSession session = req.getSession();
 			session.setMaxInactiveInterval(1200);
 			session.setAttribute("user_id", id);
-			return "1";
+			session.setAttribute("user_password", password);
+			message = new Message("1");
+		} else {
+			message = new Message("0");
 		}
-		return "0";
+		return message;
 	}
 
 	@RequestMapping(value = "/update_team.do", method = RequestMethod.POST)
-	public @ResponseBody String updateTeam(@RequestParam("team_name") String team_name,
+	public @ResponseBody Message updateTeam(@RequestParam("team_name") String team_name,
 			@RequestParam("project") String project, @RequestParam("team_leader") String team_leader,
 			@RequestParam("leader_phone") String leader_phone, @RequestParam("leader_email") String leader_email,
 			HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		String user = new String();
+		Message message;
+		//login status check
 		if (session != null) {
 			user = (String) session.getAttribute("user_id");
 			Integer res = userDao.updateTeam(team_name, project, team_leader, leader_phone, leader_email, user);
-			return res.toString();
-		} else
-			return "must login!";
+			message = new Message(res.toString());
+		} else {
+			message = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return message;
 	}
 
 	@RequestMapping(value = "/update_password.do", method = RequestMethod.POST)
-	public @ResponseBody String updatePass(HttpServletRequest req) {
+	public @ResponseBody Message updatePass(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		String user = new String();
+		Message msg;
+		// login status check
 		if (session != null) {
-			if (req.getParameter("currentPassword").equals(session.getAttribute("user_password"))
-					&& req.getParameter("newPassword").equals(req.getParameter("confirmPassword"))) {
+
+			// input password is the same as current password and new password
+			// is the same as confirm password
+			if (req.getParameter("current_password").equals(session.getAttribute("user_password"))
+					&& req.getParameter("new_password").equals(req.getParameter("confirm_password"))) {
 				user = (String) session.getAttribute("user_id");
-				Integer result = userDao.updatePassword(user, req.getParameter("password"));
-				return result.toString();
+				Integer result = userDao.updatePassword(user, req.getParameter("new_password"));
+				msg = new Message(result.toString());
+
+				// input error
 			} else {
-				return "input error";
+				msg = new Message(Message.ERROR, "ERROR", "Input error!");
 			}
-		} else
-			return "must login!";
+		} else {
+			msg = new Message(Message.ERROR, "ERROR", "Not login!");
+		}
+
+		return msg;
 	}
 
 	@RequestMapping(value = "/agenda_report.do")
-	public @ResponseBody List<Report> agenda(HttpServletRequest req) {
-		List<Report> result = userDao.agendaReport(req.getParameter("user_id"));
-		return result;
+	public @ResponseBody Message agenda(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		Message msg;
+		// login status check
+		if (session != null) {
+			List<Report> result = userDao.agendaReport((String) req.getSession().getAttribute("user_id"));
+			msg = new Message(result);
+		} else {
+			msg = new Message(Message.ERROR, "ERROR", "Not login!");
+		}
+		return msg;
 	}
 
 	@RequestMapping(value = "/edit.do")
-	public @ResponseBody String edit(HttpServletRequest req) {
+	public @ResponseBody Message edit(HttpServletRequest req) {
+		//login status check
+		Message msg;
 		if (req.getSession() != null) {
 			Report report = new Report();
-			report.setReport_id(req.getParameter("report_id"));
-			report.setUpload_date(req.getParameter("upload_date"));
-			report.setTeam_id((String) req.getSession().getAttribute("user_id"));
+			
+			//format for report_id and upload_date
+			Date date = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			String upload_date = simpleDateFormat.format(date);
+			String report_id = (String)req.getSession().getAttribute("user_id")+upload_date;
+			
+			//build report
+			report.setReport_id(report_id);
+			report.setUpload_date(upload_date);
+			report.setProject(req.getParameter("project"));
+			report.setTeam_name(req.getParameter("team_name"));
+			report.setTeam_leader(req.getParameter("team_leader"));
+			report.setLeader_phone(req.getParameter("leader_phone"));
+			report.setLeader_mail(req.getParameter("leader_mail"));
 			report.setProgress(req.getParameter("progress"));
 			report.setHarvest(req.getParameter("harvest"));
 			report.setNext_aim(req.getParameter("next_aim"));
+			
 			Integer result = userDao.insertReport(report);
-			return result.toString();
+			msg = new Message(result.toString());
+			
+		} else {
+			msg = new Message(Message.ERROR, "ERROR", "Not login!");
 		}
-		else{
-			return "must login!";
-		}
+		return msg;
 	}
+	
+	@RequestMapping("/review_report.do")
+	public @ResponseBody Message reviewReport(HttpServletRequest req){
+		HttpSession session = req.getSession(false);
+		Message msg;
+		// login status check
+		if (session != null) {
+			List<Report> result = userDao.viewReport((String) req.getSession().getAttribute("user_id"));
+			msg = new Message(result);
+		} else {
+			msg = new Message(Message.ERROR, "ERROR", "Not login!");
+		}
+		return msg;
+	}
+	
+	
 }
