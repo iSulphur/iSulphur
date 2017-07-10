@@ -57,7 +57,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                 	<li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i>当前任务</a>
+                        <a href="current-task.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i>当前任务</a>
                     </li>
 
                     <li>
@@ -73,13 +73,10 @@
                     </ul>
                     </li>
 					<li>
-                        <a href="history-tasks.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 历史任务</a>
+                        <a href="history-task.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 历史任务</a>
                     </li>
                     <li>
                         <a href="user-manage.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 团队管理</a>
-                    </li>
-                    <li>
-                        <a href="teacher-manage.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 导师管理</a>
                     </li>
                     <li>
                         <a href="admin-base-info.html" class="active-menu waves-effect waves-dark"><i class="fa fa-table"></i> 基本信息</a>
@@ -110,13 +107,13 @@
                     <div class="col-md-12">
                     	<div class="card">
                     		<div class="card-content">
-                        <form class="a" action ="" method="post" onsubmit="return adduser();>
+                        <form class="a">
                         	<p>团 队 名 称 ：</p>
-                        	<input type="text" placeholder="输入团队名称" name="teamname"></input>
+                        	<input type="text" placeholder="输入团队名称"></input>
                         	<p>项 目 名 称：</p>
-                        	<input type="text" placeholder="输入项目名称" name="proname"></input>
+                        	<input type="text" placeholder="输入项目名称"></input>
                         	<p>密 码 ：</p>
-                        	<input type="text" placeholder="输入密码" name="password"></input>
+                        	<input type="text" placeholder="输入密码"></input>
                         	<div>
                         	<input type="submit" value="提交"  name="submit"/>
                         	<input type="reset" value="重置"  name="reset" />

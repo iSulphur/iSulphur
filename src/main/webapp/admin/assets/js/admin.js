@@ -2,10 +2,10 @@
 function login() {
     $.ajax({
         type: 'post',
-        url: '/iSulphur/admin/login.do',
+        url: '/iSulphur/admin/admin.do{?action}',
         data: $('form').serialize(),
         success: function (data) {
-            if(data == 1){
+            if(msgcontent == 1){
             	window.location.href="current-task.html";
             }
             else {
@@ -19,16 +19,17 @@ function login() {
 function updatapwd(){
 	$.ajax({
 		type:"post",
-		url:"",
+		url:"/iSulphur/admin/",
 		data:"passwprd="+pwd.val(),
 		success:function(data)
 		{
 			
 			if(data==1)
-			alert("添加成功");
+				
+			alert("修改成功");
 			else
 			{
-				alert("添加失败");
+				alert("修改失败");
 			}
 		}
 	});

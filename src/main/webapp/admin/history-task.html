@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -18,7 +18,7 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
+    <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
     <link href="assets/css/new.css" rel="stylesheet" />
     <script type="text/javascript">
     	function delayURL(url,time){
@@ -27,7 +27,7 @@
     </script>
 </head>
 <body>
-   <div id="wrapper">
+    <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -42,7 +42,7 @@
             </div>
 
             <ul class="nav navbar-top-links navbar-right"> 
-				  <li><a class="dropdown-button waves-effect waves-dark" href="#" onclick="delayURL('current-task.html',550)"><i class="fa fa-home fa-fw"></i><b>首　　页</b></a></li>	
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#" onclick="delayURL('current task.html',550)"><i class="fa fa-home fa-fw"></i><b>首　　页</b></a></li>	
 				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>注销用户</b> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
@@ -52,8 +52,8 @@
 </li> 
 <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>　退　　出</a>
 </li>
-</ul> 
-                 <nav class="navbar-default navbar-side" role="navigation">
+</ul>
+                <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                 	<li>
@@ -73,13 +73,10 @@
                     </ul>
                     </li>
 					<li>
-                        <a href="history-tasks.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 历史任务</a>
+                        <a href="history-task.html" class="active-menu waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 历史任务</a>
                     </li>
                     <li>
                         <a href="user-manage.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 团队管理</a>
-                    </li>
-                    <li>
-                        <a href="teacher-manage.html" class="active-menu waves-effect waves-dark"><i class="fa fa-qrcode"></i> 导师管理</a>
                     </li>
                     <li>
                         <a href="admin-base-info.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 基本信息</a>
@@ -100,70 +97,74 @@
 
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
-        	<div class="header"> 
+   <div id="page-wrapper" >
+			  <div class="header"> 
                         <h1 class="page-header">
-                            导师管理
+                            历史任务
                         </h1>
-		  </div>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tabs & Panels</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+		
             <div id="page-inner"> 
-                    <div class="col-md-12">
-						<div class="card">							
-							<div class="card-image">
-								<div class="collection">
-			<div class="c">
-                        	<a href="teacher-new.html"><input type="button" value="新增"  name="new" /></a>
-                        	<input type="submit" value="删除"  name="delete" />
-                        	<input type="button" name="Export" value="导出到Excel"/>
-		 	</div>
-		 	<form action="/" method="get" class="c">
-                       	<input type="search" placeholder="请输入团队编号" result="8" class="b">
-                       	<input type="submit" name="Search" value="查询"/>        
-            </form>
-            <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>导师名</th>
-                                            
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            
-                                            <td>	<a href="teacher-basic information.html"><input type="button" value="修改"  name="new"/></a><input type="submit" value="删除"  name="delete"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            
-                                            <td>	<input type="button" value="修改"  name="new"/><input type="submit" value="删除"  name="delete"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            
-                                            <td>	<input type="button" value="修改"  name="new"/><input type="submit" value="删除"  name="delete"/> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- End  Kitchen Sink -->
-				
-								</div>
-							</div> 
-						</div>	  
-                    </div>
-        </div>
-                        
-       
+                                 
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                   <div class="card teal">
+						<div class="card-content white-text">
+						  <span class="card-title">任务一</span>
+						  <p>开始时间：<span>2012年12月12日</span><span>6:00</span></p>
+						  <p>截止时间:<span>2012年12月29日</span><span>18:00</span></p>
+						  <p>任务要求:开心就好</p>
+						</div>
+						<div class="card-action">
+						  <a href="history-reports.html">详情</a>
+						  <a href="#">删除</a>
+						</div>
+					  </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                   <div class="card">
+						<div class="card-content">
+						  <span class="card-title">任务二</span>
+						  <p>开始时间：<span>2012年12月12日</span><span>6:00</span></p>
+						  <p>截止时间:<span>2012年12月29日</span><span>18:00</span></p>
+						  <p>任务要求:开心就好</p>
+						</div>
+						<div class="card-action">
+						  <a href="history-report.html">详情</a>
+						  <a href="#">删除</a>
+						</div>
+					  </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                        <div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+						  <span class="card-title">任务三</span>
+						  <p>开始时间：<span>2012年12月12日</span><span>6:00</span></p>
+						  <p>截止时间:<span>2012年12月29日</span><span>18:00</span></p>
+						  <p>任务要求:开心就好</p>
+						</div>
+						<div class="card-action">
+						  <a href="history-task.html">详情</a>
+						  <a href="#">删除</a>
+						</div>
+					  </div>
+                </div>
+            </div>
+                   <!-- /. ROW  -->
+           
+                    <!-- /. ROW  --> 
+				<footer><p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p></footer>
+					</div>
+			 <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+             <!-- /. PAGE INNER  -->
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
