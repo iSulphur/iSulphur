@@ -16,7 +16,7 @@ function login() {
     });
     return false;
 }
-function updatapwd(){
+/*function updatapwd(){
 	$.ajax({
 		type:"post",
 		url:"/iSulphur/admin/",
@@ -51,4 +51,4 @@ function adduser(){
         }
 	});
 
-}
+}*/
