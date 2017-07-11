@@ -174,11 +174,26 @@ public class AdminDaoImp implements AdminDao {
 		String sql = "select * from review where report_id=?";
 		RowMapper<Review> rowMapper=new BeanPropertyRowMapper<>(Review.class);
 		List<Review> reviews = jdbcTemplate.query(sql, new Object[]{reportID}, rowMapper);
-		return reviews.get(0);
+		if(reviews != null){
+			return reviews.get(0);			
+		}
+		return null;
 	}
 	@Override
 	public int addResult(Result r) {
 		String sql = "insert into result values(?,?,?)";
 		return jdbcTemplate.update(sql, new Object[]{r.getReportID(),r.getFinalResult()});
+	}
+	@Override
+	public boolean paraCheck(String[] params) {
+		for(String p : params){
+			if(p == null){
+				return false;
+			}
+			else if (p.equals("")) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

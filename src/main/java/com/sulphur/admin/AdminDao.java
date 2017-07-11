@@ -32,4 +32,7 @@ public interface AdminDao {
 	public List<Report> findAllReport();
 	public Review findReview(String reportID);
 	public int addResult(Result r);
+	
+	// 
+	public boolean paraCheck(String[] params);
 }

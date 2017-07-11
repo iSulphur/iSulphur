@@ -55,8 +55,8 @@ public class AdminAction {
 		}
 			
 		if(session != null){
-//			user = (String) session.getAttribute("admin_id");
-			user = "sulphur";
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
 			int res = adminDao.checkPrivileges(user);
 			if(res == 0){
 				// update password
@@ -101,8 +101,8 @@ public class AdminAction {
 		String user = new String();
 		Message msg;
 		if(session != null){
-//			user = (String) session.getAttribute("admin_id");
-			user = "sulphur";
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
 			int res = adminDao.checkPrivileges(user);
 			if(res == 0){
 				// list all team
@@ -128,9 +128,15 @@ public class AdminAction {
 					String leaderPhone = req.getParameter("leader_phone");
 					String leaderMail = req.getParameter("leader_mail");
 					// some check
-					Team team = new Team(teamID,teamName,project,teamLeader,leaderPhone,leaderMail);
-					int r = adminDao.addTeam(team);
-					msg = new Message(r);
+					String[] p = {teamID,teamName,project,teamLeader,leaderPhone,leaderMail};
+					if(adminDao.paraCheck(p)){
+						Team team = new Team(teamID,teamName,project,teamLeader,leaderPhone,leaderMail);
+						int r = adminDao.addTeam(team);
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
+						
 				}
 				else if (action.equals("del")) {
 					String teamID = req.getParameter("team_id");
@@ -146,15 +152,25 @@ public class AdminAction {
 					String leaderPhone = req.getParameter("leader_phone");
 					String leaderMail = req.getParameter("leader_mail");
 					// some check
-					Team team = new Team(teamID,teamName,project,teamLeader,leaderPhone,leaderMail);
-					int r = adminDao.updateTeam(team);
-					msg = new Message(r);
+					String[] p = {teamID,teamName,project,teamLeader,leaderPhone,leaderMail};
+					if(adminDao.paraCheck(p)){
+						Team team = new Team(teamID,teamName,project,teamLeader,leaderPhone,leaderMail);
+						int r = adminDao.updateTeam(team);
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
 				}
 				else if (action.equals("find")){
 					String teamID = req.getParameter("team_id");
-					// some check
-					Map<String, Object> r = adminDao.findTeamById(teamID);
-					msg = new Message(r);
+					String[] p = {teamID};
+					if(adminDao.paraCheck(p)){
+						// some check
+						Map<String, Object> r = adminDao.findTeamById(teamID);
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
 				}
 				else{
 					msg = new Message(Message.WARNING, "Unkown Action.", action);
@@ -179,8 +195,8 @@ public class AdminAction {
 		String user = new String();
 		Message msg;
 		if(session != null){
-//			user = (String) session.getAttribute("admin_id");
-			user = "sulphur";
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
 			int res = adminDao.checkPrivileges(user);
 			if(res == 0){
 				// list all current tasks
@@ -210,9 +226,15 @@ public class AdminAction {
 				// set status
 				else if (action.equals("set_status")) {
 					String id = req.getParameter("report_task_id");
-					int status = Integer.parseInt(req.getParameter("task_status"));
-					int r = adminDao.setTaskStatus(id, status);
-					msg = new Message(r);
+					String status = req.getParameter("task_status");
+					
+					String[] p = {id, status};
+					if(adminDao.paraCheck(p)){
+						int r = adminDao.setTaskStatus(id, Integer.parseInt(status));
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
 				}
 				// add new
 				else if (action.equals("add")){
@@ -220,13 +242,18 @@ public class AdminAction {
 					String tP = req.getParameter("task_property");
 					String bT = req.getParameter("begin_time");
 					String eT = req.getParameter("end_time");
-					int mST = Integer.parseInt(req.getParameter("max_submit_time"));
+					String mST = req.getParameter("max_submit_time");
 					String tR = req.getParameter("task_remake");
-					int status = Integer.parseInt(req.getParameter("task_status"));
+					String status = req.getParameter("task_status");
+					String[] p = {rTI, tP, bT, eT, mST, tR, status};
 					// some check
-					ReportTask t = new ReportTask(rTI,tP,bT,eT,mST,tR,status);
-					int r = adminDao.addNewTask(t);
-					msg = new Message(r);
+					if(adminDao.paraCheck(p)){
+						ReportTask t = new ReportTask(rTI,tP,bT,eT,Integer.parseInt(mST),tR,Integer.parseInt(status));
+						int r = adminDao.addNewTask(t);
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
 				}
 				else{
 					msg = new Message(Message.WARNING, "Unkown Action.", action);
@@ -251,8 +278,8 @@ public class AdminAction {
 		String user = new String();
 		Message msg;
 		if(session != null){
-//			user = (String) session.getAttribute("admin_id");
-			user = "sulphur";
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
 			int res = adminDao.checkPrivileges(user);
 			if(res == 0){
 				if(action == null || action.equals("")){
@@ -272,21 +299,37 @@ public class AdminAction {
 				// find review
 				else if (action.equals("findrev")) {
 					String reportID = req.getParameter("report_id");
-					Review r = adminDao.findReview(reportID);
-					if(r != null){
-						msg = new Message(r);
+					
+					String[] p = {reportID};
+					// some check
+					if(adminDao.paraCheck(p)){
+						Review r = adminDao.findReview(reportID);
+						if(r != null){
+							msg = new Message(r);
+						}
+						else{
+							msg = new Message(Message.WARNING, "No Review", "No Review Found!");
+						}
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
 					}
-					else{
-						msg = new Message(Message.WARNING, "No Review", "No Review Found!");
-					}
+
 				}
 				// add result
 				else if (action.equals("add_result")){
 					String rI = req.getParameter("report_id");
 					String fR = req.getParameter("final_result");
-					Result result = new Result(rI, fR);
-					int r = adminDao.addResult(result);
-					msg = new Message(r);
+					
+					String[] p = {rI, fR};
+					// some check
+					if(adminDao.paraCheck(p)){
+						Result result = new Result(rI, fR);
+						int r = adminDao.addResult(result);
+						msg = new Message(r);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
+
 				}
 				else{
 					msg = new Message(Message.WARNING, "Unkown Action.", action);
