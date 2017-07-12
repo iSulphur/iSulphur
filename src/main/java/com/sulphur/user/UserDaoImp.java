@@ -61,7 +61,7 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public int insertReport(Report report){
 
-		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0");
 	}
 	

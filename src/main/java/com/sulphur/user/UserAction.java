@@ -1,5 +1,7 @@
 package com.sulphur.user;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,7 @@ public class UserAction {
 	private UserDao userDao;
 
 	@RequestMapping(value = "/user.do")
-	public @ResponseBody Message userAction(HttpServletRequest req) {
+	public @ResponseBody Message userAction(HttpServletRequest req) throws FileNotFoundException, IOException {
 		//get action
 		String action = req.getParameter("action");
 		
@@ -163,6 +165,43 @@ public class UserAction {
 			if (session != null) {
 				List<Report> result = userDao.viewReport((String) req.getSession().getAttribute("user_id"));
 				msg = new Message(result);
+			} else {
+				msg = new Message(Message.ERROR, "ERROR", "Not login!");
+			}
+			return msg;
+		}
+		
+		//upload docx
+		else if(action.equals("upload")){
+			//login status check
+			Message msg;
+			if (req.getSession() != null) {
+				Report report = new Report();
+				
+				//format for report_id and upload_date
+				Date date = new Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+				String upload_date = simpleDateFormat.format(date);
+				String report_id = (String)req.getSession().getAttribute("user_id")+upload_date;
+				
+				//build report
+				ExportDocx test = new ExportDocx(req.getParameter("path"));
+				List<String> table = test.getResult();
+				
+				report.setReport_id(report_id);
+				report.setUpload_date(upload_date);
+				report.setProject(table.get(0));
+				report.setTeam_name(table.get(1));
+				report.setTeam_leader(table.get(2));
+				report.setLeader_phone(table.get(3));
+				report.setLeader_mail(table.get(4));
+				report.setProgress(table.get(5));
+				report.setHarvest(table.get(6));
+				report.setNext_aim(table.get(7));
+				
+				Integer result = userDao.insertReport(report);
+				msg = new Message(result.toString());
+				
 			} else {
 				msg = new Message(Message.ERROR, "ERROR", "Not login!");
 			}
