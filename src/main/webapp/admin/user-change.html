@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-	
+	<script type="text/javascript" src="assets/js/admin.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
@@ -107,18 +107,23 @@
                     <div class="col-md-12">
                     	<div class="card">
                     		<div class="card-content">
-                        <form class="a">
+                        <form action ="" method="post" onsubmit="return updateteaminfo();" class="a" >
+                        <p>团 队 I D ：</p>
+                        	<input type="text" placeholder="输入团队ID" id="teamID"></input>
                         	<p>团 队 名 称 ：</p>
-                        	<input type="text" placeholder="输入团队名称"></input>
+                        	<input type="text" placeholder="输入团队名称" id="team"></input>
                         	<p>项 目 名 称：</p>
-                        	<input type="text" placeholder="输入项目名称"></input>
-                        	<p>密 码 ：</p>
-                        	<input type="text" placeholder="输入密码"></input>
+                        	<input type="text" placeholder="输入项目名称" id="project"></input>
+                        	<p>负责人姓名 ：</p>
+                        	<input type="text" placeholder="输入负责人姓名" id="name"></input>
+                        	<p>负责人电话：</p>
+                        	<input type="text" placeholder="输入负责人电话" id="phone"></input>
+                        	<p>负责人邮箱：</p>
+                        	<input type="text" placeholder="输入负责人邮箱" id="mail"></input>
                         	<div>
-                        	<input type="submit" value="提交"  name="submit"/>
-                        	<input type="reset" value="重置"  name="reset" />
-                        	</div>
-		
+                        	<button type="submit">提交</button>
+                        	<button type="reset">重置</button>
+                        	</div>	
 		                </form>
 						</div>
                     	</div>

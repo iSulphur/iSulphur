@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-	
+	<script type="text/javascript" src="assets/js/admin.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
@@ -20,13 +20,14 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> 
     <link href="assets/css/new.css" rel="stylesheet" />
+    <script src="assets/js/jquery-1.10.2.js"></script>
     <script type="text/javascript">
     	function delayURL(url,time){
     		setTimeout("top.location.href = '" + url + "'",time);
     	}
     </script>
 </head>
-<body>
+<body  onload="return listteaminfo();">
    <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -89,13 +90,6 @@
             </div>
 
         </nav>
-        <!-- /. NAV SIDE  --></a>
-                    </li>
-                </ul>
-
-            </div>
-
-        </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
         	<div class="header"> 
@@ -113,9 +107,9 @@
                         	<input type="button" value="删除"  name="delete" />
                         	<input type="button" name="Export" value="导出到Excel"/>
 		 	</div>
-		 	<form action="/" method="get" class="c">
-                       	<input type="search" placeholder="请输入团队编号" result="8" class="b">
-                       	<input type="submit" name="Search" value="查询"/>        
+		 	<form action="" method="get" class="c"  onsubmit="return findteam();">
+                       	<input type="search" placeholder="请输入团队编号"  class="b" id="team">
+                       	<button type="submit" name="Search" id="searching">查询</button>        
             </form>
             <div class="card-content">
                             <div class="table-responsive">
@@ -128,25 +122,8 @@
                                             <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>	<a href="user-change.html"><input type="button" value="修改"  name="new"/></a><input type="submit" value="删除"  name="delete"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>	<input type="button" value="修改"  name="new"/><input type="submit" value="删除"  name="delete"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>	<input type="button" value="修改"  name="new"/><input type="submit" value="删除"  name="delete"/></td>
-                                        </tr>
+                                    <tbody id='table-content'>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -164,7 +141,7 @@
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
+    
 	
 	<!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
