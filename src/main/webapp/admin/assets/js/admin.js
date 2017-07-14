@@ -131,7 +131,7 @@ function listteaminfo(){
 				$("#table-content").empty();
 				for(var i = 0; i<data.msgContent.length; i++) {
 					str += "<tr>" + "<td>" + data.msgContent[i].teamID + "</td>" + "<td>" + data.msgContent[i].teamName + "</td>" + "<td>" + data.msgContent[i].project + "</td>" +
-						"<td><a href='user-change.html'><input type='button' value='修改'  name='new'/></a><input type='submit' value='删除 ' name='delete' class='del'/> </td>";
+						"<td><a href='user-change.html'><input type='button' value='修改'  name='new'/></a><input type='submit' value='删除 ' name='delete' class='del' method='get' onsubmit='return deleteteam(data.msgContent[i].teamID)'/> </td>";
 
 				}
 				document.getElementById("table-content").innerHTML = str;
@@ -140,6 +140,27 @@ function listteaminfo(){
     		})
     		
 			
+		
+		}
+	});
+	return false;
+}
+
+function listteaminfo2(){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/team.do?action=findall",
+		success:function(data)
+		{
+			var content=document.getElementById("cur-teaminfo");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				str+='<tr class="odd gradeX"><td><a href="history-report.html">'+data.msgContent[i].project+'</a></td><td>'+data.msgContent[i].team_name+
+				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat">查看</button></a></td></tr>';
+				}
+			content.innerHTML=str;					
 		
 		}
 	});
@@ -170,7 +191,23 @@ function listhis(){
 		type:"get",
 		url:"/iSulphur/admin/task.do?action=findhis",
 		success:function(data)
-		{ 
+		{
+			var content=document.getElementById("task-content");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+			{
+    			str=str+"<div class='col-md-4 col-sm-4'>"+
+    			"<div class='card teal'>"+
+    			"<div class='card-content white-tex' style='color:white;'>"+
+    			"<span class='card-title'>" + data.msgContent[i].reportTaskID+"</span><p>"+
+    			"任务要求：<span>"+ data.msgContent[i].taskProperty +
+    			"</span>"+"</p><p>开始时间：<span>"+ data.msgContent[i].beginTime +"</span></p><p>结束时间：<span>"+  data.msgContent[i].endTime +
+    			"</span><p>最多提交次数:<span>" + data.msgContent[i].maxSubmitTime+
+    			"</span></p> </div> <div class='card-action'>"+"<a href='historical-report.html'>"+
+    			"详情</a><a href='#'>删除</a> </div> </div> </div>";
+			}
+			content.innerHTML=str;
 		}
 	});
 	return false;
@@ -182,8 +219,15 @@ function listcur(){
 		url:"/iSulphur/admin/task.do?action=findcur",
 		success:function(data)
 		{
-			if(data.msgContent)
-				{alert("ok");}
+			var content=document.getElementById("cur-task");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				str+='<div class="card-action">'+data.msgContent[i].reportTaskID+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
+				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p><button class="btn btn-default btn-flat">禁止提交</button>';
+				}
+			content.innerHTML=str;
 		}
 	});
 	return false;
@@ -195,8 +239,25 @@ function listrep(){
 		url:"/iSulphur/admin/report.do?action=findall",
 		success:function(data)
 		{
-			if(data.msgContent)
-				{alert("hhhh");}
+			var content=document.getElementById("hisreport-content");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				if(i%2==0)
+					{
+					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
+					+data.msgContent[i].harvest+'</td></tr>';
+					}
+				else
+					{
+					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
+					+data.msgContent[i].harvest+'</td></tr>';
+					}
+				}
+			content.innerHTML=str;
 		}
 	});
 	return false;
@@ -208,9 +269,77 @@ function listreview(){
 		url:"/iSulphur/admin/report.do?action=findrev",
 		success:function(data)
 		{
+			var content=document.getElementById("cur-teareview");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				str+=
+				}
+			
+		}
+	});
+	return false;
+}
+
+function addresult(){
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/admin/report.do?action=add_result",
+		data:'report_id='+$("#report_id").val()+'&final_result='+$("#final_result").val(),
+		success:function(data)
+		{
 			if(data.msgContent)
 				{alert("ok");}
 		}
 	});
 	return false;
+}
+
+function setstatus1(){
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/admin/task.do?action=set_status",
+		data:'status='+"300",
+		success:function(data)
+		{
+			if(data.msgContent)
+				{alert("ok");}
+		}
+	});
+	return false;
+}
+
+function setstatus2(){
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/admin/task.do?action=set_status",
+		data:'status='+"500",
+		success:function(data)
+		{
+			if(data.msgContent)
+				{alert("ok");}
+		}
+	});
+	return false;
+}
+
+function deleteteam(a){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/team.do?action=del",
+		data:'team_id='+a,
+		success:function(data)
+		{
+			if(data.msgContent)
+				{alert("ok");}
+		}
+	});
+	return false;
+}
+
+function a(){
+	listcur();
+	listreview();
+	listteaminfo2();
 }
