@@ -1,7 +1,7 @@
 // check admin Login
 function login() {
     $.ajax({
-        type: 'post',
+        type:'post',
         url: '/iSulphur/admin/admin.do?action=login',
         data: $('form').serialize(),
         success: function (data) {
@@ -83,20 +83,31 @@ function addteam(){
 		return false;
 }
 
-function findteam(){
+function findteam(obj){
+	
 	$.ajax({
 		type:"post",
 		url:"/iSulphur/admin/team.do?action=find",
-		data: 'team_id='+$("#team").val(),
+		data:'team_id='+obj.value,
 		success:function(data)
 		{
+		 	window.location.href="user_message.html";
 			
-			if(data.msgContent)				
-			{alert("成功");}
-			else
-			{
-				alert("失败");
-			}
+		}
+	});
+	return false;
+}
+
+function findteam2(obj){
+	
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/admin/team.do?action=find",
+		data:'team_id='+obj.value,
+		success:function(data)
+		{
+			window.location.href="user-change.html";
+			
 		}
 	});
 	return false;
@@ -109,7 +120,7 @@ function updateteaminfo(){
 		data: 'team_id='+$("#teamID").val()+'&team_name='+$("#team").val()+'&project='+$("#project").val()+'&team_leader='+$("#name").val()+'&leader_phone='+$("#phone").val()+'&leader_mail='+$("#mail").val(),
 		success:function(data)
 		{
-			
+			 
 			if(data.msgContent==1)				
 			alert("修改成功");
 			else
@@ -131,7 +142,7 @@ function listteaminfo(){
 				$("#table-content").empty();
 				for(var i = 0; i<data.msgContent.length; i++) {
 					str += "<tr>" + "<td>" + data.msgContent[i].teamID + "</td>" + "<td>" + data.msgContent[i].teamName + "</td>" + "<td>" + data.msgContent[i].project + "</td>" +
-						"<td><a href='user-change.html'><input type='button' value='修改'  name='new'/></a><input type='submit' value='删除 ' name='delete' class='del' method='get' onsubmit='return deleteteam(data.msgContent[i].teamID)'/> </td>";
+						"<td><a href='user-change.html'> <button name='teamID' value="+data.msgContent[i].teamID+" onclick='return findteam2(this);'>修改</button></a><button name='teamID' value="+data.msgContent[i].teamID+" onclick='return deleteteam(this);'>删除</button></td>";
 
 				}
 				document.getElementById("table-content").innerHTML = str;
@@ -158,7 +169,7 @@ function listteaminfo2(){
 			for(var i=0;i<data.msgContent.length;i++)
 				{
 				str+='<tr class="odd gradeX"><td><a href="history-report.html">'+data.msgContent[i].project+'</a></td><td>'+data.msgContent[i].team_name+
-				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat">查看</button></a></td></tr>';
+				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat" name="teamID" value='+data.msgContent[i].teamID+' onclick="return findteam(this);">查看</button></a></td></tr>';
 				}
 			content.innerHTML=str;					
 		
@@ -274,9 +285,10 @@ function listreview(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+=
+				str+='<tr class="odd gradeX"><td>'+data.msgContent[i].review_id+'</td><td>'+data.msgContent[i].report_id+'</td><td>'+data.msgContent[i].ranking
+				+'</td><td>'+data.msgContent[i].suggest+'</td></tr>';
 				}
-			
+			content.innerHTML=str;
 		}
 	});
 	return false;
@@ -324,15 +336,14 @@ function setstatus2(){
 	return false;
 }
 
-function deleteteam(a){
+function deleteteam(obj){
 	$.ajax({
 		type:"get",
 		url:"/iSulphur/admin/team.do?action=del",
-		data:'team_id='+a,
+		data:'team_id='+obj.value,
 		success:function(data)
 		{
-			if(data.msgContent)
-				{alert("ok");}
+			alert("ok");
 		}
 	});
 	return false;
