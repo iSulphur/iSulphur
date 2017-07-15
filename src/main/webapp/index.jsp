@@ -1,7 +1,7 @@
 <html>
 <body>
 <script>
-window.location.href="teacher/task.html";
+window.location.href="user/login.html";
 </script>
 </body>
 </html>

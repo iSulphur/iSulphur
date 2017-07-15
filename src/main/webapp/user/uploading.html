@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-	
+	<script type="text/javascript" src="assets/js/user.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i> <strong>iSulphur</strong></a>
+                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i> <strong>团队用户</strong></a>
 				
 		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
@@ -62,7 +62,7 @@
                     
                     <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="on-line editing.html" >在线编辑</a>
+                                <a href="on-line-edit.html" >在线编辑</a>
                             </li>
                             <li>
                                 <a href="uploading.html" class="active-second-menu">上传报告</a>
@@ -70,14 +70,14 @@
                     </ul>
                     </li>
 					<li>
-                        <a href="view report.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 查看报告</a>
+                        <a href="view-report.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 查看报告</a>
                     
                     <ul class="nav nav-second-level">
                             <li>
-                                <a href="view report.html#yishenhe" >已审核</a>
+                                <a href="view-report.html#yishenhe" >已审核</a>
                             </li>
                             <li>
-                                <a href="view report.html#daishenhe">待审核</a>
+                                <a href="view-report.html#daishenhe">待审核</a>
                             </li>
                     </ul>
                     </li>
@@ -85,9 +85,14 @@
                         <a href="agenda.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 待办报告</a>
                     </li>
                     
-                    <li>
-                        <a href="basic information.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 基本信息</a>
-                    </li>
+                    <li><a href="view-basic-info.html"
+						class="waves-effect waves-dark"><i
+							class="fa fa-table"></i> 基本信息</a>
+						<ul class="nav nav-second-level">
+							<li><a href="view-basic-info.html">查看信息</a></li>
+							<li><a href="change-basic-info.html">修改信息</a></li>
+						</ul>
+					</li>
                     <li>
                         <a class="waves-effect waves-dark" href="change-password.html"><i class="fa fa-fw fa-file"></i>修改密码</a>
                     </li>

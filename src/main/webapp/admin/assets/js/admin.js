@@ -92,10 +92,14 @@ function findteam(obj){
 		success:function(data)
 		{
 		 	window.location.href="user_message.html";
-			
+			show(data.msgContent.team_name,data.msgContent.project,data.msgContent.leader_mail);
 		}
 	});
 	return false;
+}
+
+function show(team_name,project,leader_mail){
+	alert(team_name);
 }
 
 function findteam2(obj){
@@ -107,10 +111,14 @@ function findteam2(obj){
 		success:function(data)
 		{
 			window.location.href="user-change.html";
-			
+			show2(data.msgContent.team_id,data.msgContent.team_name,data.msgContent.project,data.msgContent.team_leader,data.msgContent.leader_phone,data.msgContent.leader_mail);
 		}
 	});
 	return false;
+}
+
+function show2(team_id,team_name,project,team_leader,leader_phone,leader_mail){
+	alert(team_id);
 }
 
 function updateteaminfo(){
