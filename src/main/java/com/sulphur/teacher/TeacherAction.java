@@ -35,53 +35,55 @@ public class TeacherAction {
 	@Autowired
 	private TeacherDao teacherdao;
 	
-	@RequestMapping(value = "/choose.do", method = RequestMethod.POST)
-	public @ResponseBody Message show_choose(HttpServletRequest req) 
+	@RequestMapping(value="/report_manager.do")
+	public @ResponseBody Message reportManage(HttpServletRequest req)
 	{
-		Message message;
-		String repp=req.getParameter("report_id");
-		Report a=teacherdao.choose(repp);
-		message=new Message(Message.SULPHUR,"OK",a);
-		return message;
-	}
-	
-	@RequestMapping(value = "/show.do", method = RequestMethod.POST)
-	public @ResponseBody Message show_all()
-	{
-		List<Report> result = teacherdao.showReport();
-		if(result.isEmpty())return new Message(Message.ERROR,"none",null);
-		else return new Message(Message.SULPHUR,"success",result);
-	}
-	
-	@RequestMapping(value = "/review.do", method =RequestMethod.POST)
-	public @ResponseBody Message reviewreport(@RequestParam("ranking")String ranking,@RequestParam("suggest")String suggest,HttpServletRequest req )
-	{
-		String csysb=req.getParameter("report_id");
-		int a=teacherdao.review(csysb,ranking,suggest);
+		String action=req.getParameter("action");
 		Message msg = null;
-		if(a==1)msg= new Message(Message.SULPHUR,"success",1);
-		else if(a==0)msg= new Message(Message.SULPHUR,"update_error",0);
-		else if(a==-1)msg= new Message(Message.SULPHUR,"review_error",-1);
+		if(action == null || action.equals("")){
+			msg = new Message(Message.WARNING, "No Action", "Please provide what action to do.");
+		}
+		else if(action.equals("show"))
+		{
+			List<Report> result = teacherdao.showReport();
+			if(result.isEmpty())msg=new Message(Message.ERROR,"none",null);
+			else msg= new Message(Message.SULPHUR,"success",result);
+		}
+		else if(action.equals("choose"))
+		{
+			String repp=req.getParameter("report_id");
+			Report a=teacherdao.choose(repp);
+			msg=new Message(Message.SULPHUR,"OK",a);
+		}
+		else if(action.equals("review"))
+		{
+			String report_id=req.getParameter("report_id");
+			String ranking=req.getParameter("ranking");
+			String suggest=req.getParameter("suggest");
+			int a=teacherdao.review(report_id,ranking,suggest);
+			if(a==1)msg= new Message(Message.SULPHUR,"success",1);
+			else if(a==0)msg= new Message(Message.SULPHUR,"update_error",0);
+			else if(a==-1)msg= new Message(Message.SULPHUR,"review_error",-1);			
+		}
+		else if(action.equals("review1"))
+		{
+			String csysb=req.getParameter("report_id");
+			String ranking=req.getParameter("ranking");
+			String suggest=req.getParameter("suggest");
+			int a=teacherdao.review1(csysb,ranking,suggest);
+			if(a==1)msg= new Message(Message.SULPHUR,"success",1);
+			else if(a==0)msg= new Message(Message.SULPHUR,"update_error",0);
+			else if(a==-1)msg= new Message(Message.SULPHUR,"review_error",-1);
+		}
+		else{
+			msg = new Message(Message.WARNING, "Unkown Action.", action);
+		}
 		return msg;
-		
-	}
 	
-	@RequestMapping(value = "/review1.do", method =RequestMethod.POST)
-	public @ResponseBody Message reviewreport1(@RequestParam("ranking")String ranking,@RequestParam("suggest")String suggest,HttpServletRequest req )
-	{
-		String csysb=req.getParameter("report_id");
-		int a=teacherdao.review1(csysb,ranking,suggest);
-		Message msg = null;
-		if(a==1)msg= new Message(Message.SULPHUR,"success",1);
-		else if(a==0)msg= new Message(Message.SULPHUR,"update_error",0);
-		else if(a==-1)msg= new Message(Message.SULPHUR,"review_error",-1);
-		return msg;
-		
 	}
-	
 	
 	@RequestMapping(value="/review_manager.do")
-	public @ResponseBody Message reportManage(HttpServletRequest req){
+	public @ResponseBody Message reviewManage(HttpServletRequest req){
 		String action = req.getParameter("action");
 		Message msg;
 			if(action == null || action.equals("")){
