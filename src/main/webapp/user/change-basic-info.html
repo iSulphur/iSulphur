@@ -116,51 +116,22 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-content">
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>团队名称:
-						</p>
-						<div>
-							<input type="text" placeholder="输入团队名称" class="b">
-						</div>
-
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>项目名称:
-						</p>
-						<div>
-							<input type="text" placeholder="输入项目名称">
-						</div>
-
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>团队负责人:
-						</p>
-						<div>
-							<input type="text" placeholder="输入团队负责人">
-						</div>
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>联系电话:
-						</p>
-						<div>
-							<input type="text" placeholder="输入联系电话">
-						</div>
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>联系Q Q:
-						</p>
-						<div>
-							<input type="text" placeholder="输入联系电话">
-						</div>
-						<!-- Text input-->
-						<p>
-							<span style="color: red">*</span>联系邮箱:
-						</p>
-						<div>
-							<input type="text" placeholder="输入联系电话">
-						</div>
-						<a class="waves-effect waves-light btn">确认</a>
+						<form action ="" method="post" onsubmit="return updateinfo();" class="a" >
+                        	<p>团 队 名 称 ：</p>
+                        	<input type="text" placeholder="输入团队名称" id="team"></input>
+                        	<p>项 目 名 称：</p>
+                        	<input type="text" placeholder="输入项目名称" id="project"></input>
+                        	<p>负责人姓名 ：</p>
+                        	<input type="text" placeholder="输入负责人姓名" id="name"></input>
+                        	<p>负责人电话：</p>
+                        	<input type="text" placeholder="输入负责人电话" id="phone"></input>
+                        	<p>负责人邮箱：</p>
+                        	<input type="text" placeholder="输入负责人邮箱" id="mail"></input>
+                        	<div>
+                        	<button type="submit">提交</button>
+                        	<button type="reset">重置</button>
+                        	</div>	
+		                </form>
 					</div>
 				</div>
 			</div>

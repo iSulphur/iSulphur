@@ -128,26 +128,26 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-content">
-								<form class="a">
+								<form class="a" method="post" onsubmit="return online();">
 									<p>团 队 名 称 ：</p>
-									<input type="text" placeholder="输入项目名称" id="team-name"></input>
+									<input type="text" placeholder="输入团队名称" id="team-name"></input>
 									<p>项 目 名 称 ：</p>
 									<input type="text" placeholder="输入项目名称" id="projection"></input>
 									<p>团队负责人：</p>
-									<input type="text" placeholder="输入项目名称" id="principal"></input>
+									<input type="text" placeholder="输入团队负责人" id="principal"></input>
 									<p>联 系 电 话 ：</p>
-									<input type="text" placeholder="输入项目名称" id="phone"></input>
+									<input type="text" placeholder="输入联系电话" id="phone"></input>
 									<p>联 系 邮 箱 ：</p>
-									<input type="text" placeholder="输入项目名称" id="email"></input>
+									<input type="text" placeholder="输入联系邮箱" id="email"></input>
 									<p>项 目 进 展 ：</p>
 									<textarea class="b" cols="50" rows="10" placeholder="详细报告项目进展情况，是否按照计划进行、进度等" id="progress"></textarea>
 									<p>已取得的阶段性成果：</p>
 									<textarea class="b" cols="50" rows="10" placeholder="成果为系统演示录像、项目报告、软件著作权、专利、论文、获奖情况等多种方式，可另附页或加附件。" id="cur-achieve"></textarea>
 									<p>下一阶段项目计划及时间安排：</p>
 									<textarea class="b" cols="50" rows="10" placeholder="在这里输入内容..." id="plan"></textarea>
-									<input type="submit" value="确定" name="submit" />
-									<input type="reset" value="重置" name="reset" />
-									<input type="button" value="预览" / id="review" onclick="return Winopen()">
+									<button type="submit" value="确定" name="submit">确定</button>
+									<button type="reset" value="重置" name="reset">重置</button>
+									<button type="button" value="预览"  id="review" onclick="return Winopen()">预览</button>
 								</form>
 
 							</div>

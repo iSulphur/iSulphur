@@ -92,7 +92,13 @@ function findteam(obj){
 		success:function(data)
 		{
 		 	window.location.href="user_message.html";
-			show(data.msgContent.team_name,data.msgContent.project,data.msgContent.leader_mail);
+		 	alert(ducument.getElementById(obj.id).parent().firstChild);
+		 	
+		 	//document.getElementById("name").value=data.msgContent.team_name;
+		 	//document.getElementById("proname").value=data.msgContent.project;
+		 	//document.getElementById("mail").value=data.msgContent.leader_mail;
+		 	aler("2");
+			//show(data.msgContent.team_name,data.msgContent.project,data.msgContent.leader_mail);
 		}
 	});
 	return false;
@@ -100,6 +106,7 @@ function findteam(obj){
 
 function show(team_name,project,leader_mail){
 	alert(team_name);
+	document.getElementById("name").	value="adendi";
 }
 
 function findteam2(obj){
