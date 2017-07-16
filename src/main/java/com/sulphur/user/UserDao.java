@@ -3,6 +3,8 @@ package com.sulphur.user;
 import java.util.List;
 
 import com.sulphur.admin.Password;
+import com.sulphur.admin.ReportTask;
+import com.sulphur.admin.Team;
 
 public interface UserDao {
 	public Password checkLogin(String id, String pass);
@@ -16,4 +18,8 @@ public interface UserDao {
 	public int insertReport(Report report);
 	
 	public List<Report> viewReport(String user_id);
+	
+	public List<ReportTask> getTask(String user_id);
+	
+	public Team getTeam(String user_id);
 }

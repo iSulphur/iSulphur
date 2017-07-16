@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sulphur.admin.Message;
 import com.sulphur.admin.Password;
+import com.sulphur.admin.ReportTask;
+import com.sulphur.admin.Team;
 
 @Controller
 @RequestMapping("/user")
@@ -208,6 +210,33 @@ public class UserAction {
 			return msg;
 		}
 		
+		//getTeam
+		else if(action.equals("getTeam")){
+			HttpSession session = req.getSession(false);
+			Message msg;
+			// login status check
+			if (session != null) {
+				Team result = userDao.getTeam((String) req.getSession().getAttribute("user_id"));
+				msg = new Message(result);
+			} else {
+				msg = new Message(Message.ERROR, "ERROR", "Not login!");
+			}
+			return msg;
+		}
+		
+		//getTask
+		else if(action.equals("getTask")){
+			HttpSession session = req.getSession(false);
+			Message msg;
+			// login status check
+			if (session != null) {
+				List<ReportTask> result = userDao.getTask((String) req.getSession().getAttribute("user_id"));
+				msg = new Message(result);
+			} else {
+				msg = new Message(Message.ERROR, "ERROR", "Not login!");
+			}
+			return msg;
+		}
 		return new Message(Message.ERROR, "ERROR", "Unknow error");
 	}
 	

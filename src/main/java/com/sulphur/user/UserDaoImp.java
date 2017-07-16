@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.sulphur.admin.Password;
+import com.sulphur.admin.ReportTask;
+import com.sulphur.admin.Team;
 
 
 @Service
@@ -72,5 +74,22 @@ public class UserDaoImp implements UserDao {
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
 		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
 		return reports;
+	}
+	
+	@Override
+	public List<ReportTask> getTask(String user_id){
+		
+		String sql = "select * from report_task";
+		RowMapper<ReportTask> rowMapper=new BeanPropertyRowMapper<>(ReportTask.class);
+		List<ReportTask> tasks = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
+		return tasks;
+	}
+	
+	@Override
+	public Team getTeam(String user_id){
+		String sql = "select * from team where team_id = ?";
+		RowMapper<Team> rowMapper=new BeanPropertyRowMapper<>(Team.class);
+		Team info = jdbcTemplate.queryForObject(sql, rowMapper);
+		return info;
 	}
 }
