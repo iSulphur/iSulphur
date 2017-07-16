@@ -81,7 +81,7 @@ public class UserDaoImp implements UserDao {
 		
 		String sql = "select * from report_task";
 		RowMapper<ReportTask> rowMapper=new BeanPropertyRowMapper<>(ReportTask.class);
-		List<ReportTask> tasks = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
+		List<ReportTask> tasks = jdbcTemplate.query(sql, new Object[]{}, rowMapper);
 		return tasks;
 	}
 	
@@ -89,7 +89,7 @@ public class UserDaoImp implements UserDao {
 	public Team getTeam(String user_id){
 		String sql = "select * from team where team_id = ?";
 		RowMapper<Team> rowMapper=new BeanPropertyRowMapper<>(Team.class);
-		Team info = jdbcTemplate.queryForObject(sql, rowMapper);
+		Team info = jdbcTemplate.queryForObject(sql, new Object[]{user_id}, rowMapper);
 		return info;
 	}
 }
