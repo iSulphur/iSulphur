@@ -55,9 +55,10 @@ public class TeacherDaoImp implements TeacherDao
 	
 	//查看所有报告
 	@Override
-	public List<Report> showReport() {
-		String sql = "select * from report";
-		List<Report> res = jdbcTemplate.query(sql, new RowMapper<Report>(){
+	//select has been changed with report_task_id.
+	public List<Report> showReport(String report_task_id) {
+		String sql = "select * from report where report_task_id=?";
+		List<Report> res = jdbcTemplate.query(sql,new Object[]{report_task_id},new RowMapper<Report>(){
 			@Override 
 			public Report mapRow(ResultSet rs, int num) throws SQLException{
 				Report a = new Report();
@@ -82,7 +83,6 @@ public class TeacherDaoImp implements TeacherDao
 		}
 			
 	}
-	//选择报告
 	@Override
 	public Report choose(String report_id)
 	{

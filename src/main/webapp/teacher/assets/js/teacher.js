@@ -3,8 +3,9 @@
 
 function showreport(){
     $.ajax({
-        type:'get',
+        type:'post',
         url: '/iSulphur/teacher/report_manager.do?action=show',
+        data:'report_task_id='+$("#report_task_id").val(),
         success: function(data) 
         {
         	
