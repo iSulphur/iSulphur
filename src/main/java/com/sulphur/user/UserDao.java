@@ -5,6 +5,7 @@ import java.util.List;
 import com.sulphur.admin.Password;
 import com.sulphur.admin.ReportTask;
 import com.sulphur.admin.Team;
+import com.sulphur.teacher.Review;
 
 public interface UserDao {
 	public Password checkLogin(String id, String pass);
@@ -22,4 +23,6 @@ public interface UserDao {
 	public List<ReportTask> getTask(String user_id);
 	
 	public Team getTeam(String user_id);
+	
+	public List<Review> getReviewByID(String report_id);
 }
