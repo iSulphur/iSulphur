@@ -14,6 +14,7 @@ public class Report {
 	String next_aim;
 	String upload_status;
 	String review_status;
+	String report_task_id;
 	public String getReport_id() {
 		return report_id;
 	}
@@ -85,6 +86,12 @@ public class Report {
 	}
 	public void setReview_status(String review_status) {
 		this.review_status = review_status;
+	}
+	public String getReport_task_id() {
+		return report_task_id;
+	}
+	public void setReport_task_id(String report_task_id) {
+		this.report_task_id = report_task_id;
 	}
 	
 }

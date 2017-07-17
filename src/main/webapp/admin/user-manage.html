@@ -25,6 +25,26 @@
     	function delayURL(url,time){
     		setTimeout("top.location.href = '" + url + "'",time);
     	}
+    	$(document).ready(function(){
+    		$("#searching").click(function() {
+				var str = $("#team").val();
+				flag=true;
+				if(str != "") {
+					$("table tr").find("td:first").each(function() {
+						if($(this).html() == str) { // 如果找到了
+							$(this).parent().show();
+							flag = false; // 将未找到标记设为false
+						}
+						else
+						{
+							$(this).parent().hide();
+						}
+					});
+					if(flag) // 如果没找到就给出提示
+						alert("查询无结果");
+				}
+			})
+    	})
     </script>
 </head>
 <body  onload="return listteaminfo();">
@@ -107,10 +127,8 @@
                         	<input type="button" value="删除"  name="delete" />
                         	<input type="button" name="Export" value="导出到Excel"/>
 		 	</div>
-		 	<form action="" method="get" class="c"  onsubmit="return findteam();">
                        	<input type="search" placeholder="请输入团队编号"  class="b" id="team">
                        	<button type="submit" name="Search" id="searching">查询</button>        
-            </form>
             <div class="card-content">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">

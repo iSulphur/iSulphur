@@ -1,7 +1,7 @@
 // check admin Login
 function login() {
     $.ajax({
-        type: 'post',
+        type:'post',
         url: '/iSulphur/admin/admin.do?action=login',
         data: $('form').serialize(),
         success: function (data) {
@@ -83,23 +83,79 @@ function addteam(){
 		return false;
 }
 
-function findteam(){
-	$.ajax({
-		type:"post",
-		url:"/iSulphur/admin/team.do?action=find",
-		data: 'team_id='+$("#team").val(),
-		success:function(data)
-		{
-			
-			if(data.msgContent)				
-			{alert("成功");}
-			else
+function findteam(obj){
+	
+	var team_id = obj.value;
+	setCookie('team_id', team_id);
+	window.location.href = "user_message.html";
+}
+
+function show(){
+	var t = getCookie("team_id") ;
+	if(t != null){
+		$.ajax({
+			type:"post",
+			url:"/iSulphur/admin/team.do?action=find",
+			data:'team_id='+t,
+			success:function(data)
 			{
-				alert("失败");
+				
+				document.getElementById("proname").value=data.msgContent.project;
+				document.getElementById("name").value=data.msgContent.team_leader;
+				document.getElementById("mail").value=data.msgContent.leader_mail;
 			}
-		}
-	});
-	return false;
+		});
+	}
+	else{
+		alert("no team id!");
+	}
+}
+
+function findteam2(obj){
+	var team_id = obj.value;
+	setCookie('team_id', team_id);
+	window.location.href = "user_change.html";
+}
+
+function setCookie(name,value)
+{
+var Days = 30;
+var exp = new Date();
+exp.setTime(exp.getTime() + Days*24*60*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+function show2(){
+	var t = getCookie("team_id") ;
+	if(t != null){
+		$.ajax({
+			type:"post",
+			url:"/iSulphur/admin/team.do?action=find",
+			data:'team_id='+t,
+			success:function(data)
+			{
+				document.getElementById("teamID").value=data.msgContent.team_id;
+				document.getElementById("team").value=data.msgContent.team_name;
+				document.getElementById("project").value=data.msgContent.project;
+				document.getElementById("name").value=data.msgContent.team_leader;
+				document.getElementById("phone").value=data.msgContent.leader_phone;
+				document.getElementById("mail").value=data.msgContent.leader_mail;
+			}
+		});
+	}
+	else{
+		alert("no team id!");
+	}
+	
+}
+
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return unescape(arr[2]);
+else
+return null;
 }
 
 function updateteaminfo(){
@@ -109,7 +165,7 @@ function updateteaminfo(){
 		data: 'team_id='+$("#teamID").val()+'&team_name='+$("#team").val()+'&project='+$("#project").val()+'&team_leader='+$("#name").val()+'&leader_phone='+$("#phone").val()+'&leader_mail='+$("#mail").val(),
 		success:function(data)
 		{
-			
+			 
 			if(data.msgContent==1)				
 			alert("修改成功");
 			else
@@ -131,7 +187,7 @@ function listteaminfo(){
 				$("#table-content").empty();
 				for(var i = 0; i<data.msgContent.length; i++) {
 					str += "<tr>" + "<td>" + data.msgContent[i].teamID + "</td>" + "<td>" + data.msgContent[i].teamName + "</td>" + "<td>" + data.msgContent[i].project + "</td>" +
-						"<td><a href='user-change.html'><input type='button' value='修改'  name='new'/></a><input type='submit' value='删除 ' name='delete' class='del' method='get' onsubmit='return deleteteam(data.msgContent[i].teamID)'/> </td>";
+						"<td><a href='user-change.html'> <button name='teamID' value="+data.msgContent[i].teamID+" onclick='findteam2(this);'>修改</button></a><button name='teamID' value="+data.msgContent[i].teamID+" onclick='return deleteteam(this);'>删除</button></td>";
 
 				}
 				document.getElementById("table-content").innerHTML = str;
@@ -158,7 +214,7 @@ function listteaminfo2(){
 			for(var i=0;i<data.msgContent.length;i++)
 				{
 				str+='<tr class="odd gradeX"><td><a href="history-report.html">'+data.msgContent[i].project+'</a></td><td>'+data.msgContent[i].team_name+
-				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat">查看</button></a></td></tr>';
+				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat" name="teamID" value='+data.msgContent[i].teamID+' onclick="findteam(this);">查看</button></a></td></tr>';
 				}
 			content.innerHTML=str;					
 		
@@ -219,15 +275,25 @@ function listcur(){
 		url:"/iSulphur/admin/task.do?action=findcur",
 		success:function(data)
 		{
-			var content=document.getElementById("cur-task");
-			content.empty;
+			var content1=document.getElementById("cur-task");
+			content1.empty;
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
 				str+='<div class="card-action">'+data.msgContent[i].reportTaskID+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
-				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p><button class="btn btn-default btn-flat">禁止提交</button>';
+				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>';
 				}
-			content.innerHTML=str;
+			content1.innerHTML=str;
+			
+			var	content2=document.getElementById("time-task");
+			content2.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				str+='<p>'+data.msgContent[i].reportTaskID+'</p><p>任务要求：'+data.msgContent[i].taskProperty+
+				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>';
+				}
+			content2.innerHTML=str;
 		}
 	});
 	return false;
@@ -274,9 +340,10 @@ function listreview(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+=
+				str+='<tr class="odd gradeX"><td>'+data.msgContent[i].review_id+'</td><td>'+data.msgContent[i].report_id+'</td><td>'+data.msgContent[i].ranking
+				+'</td><td>'+data.msgContent[i].suggest+'</td></tr>';
 				}
-			
+			content.innerHTML=str;
 		}
 	});
 	return false;
@@ -324,15 +391,14 @@ function setstatus2(){
 	return false;
 }
 
-function deleteteam(a){
+function deleteteam(obj){
 	$.ajax({
 		type:"get",
 		url:"/iSulphur/admin/team.do?action=del",
-		data:'team_id='+a,
+		data:'team_id='+obj.value,
 		success:function(data)
 		{
-			if(data.msgContent)
-				{alert("ok");}
+			alert("ok");
 		}
 	});
 	return false;

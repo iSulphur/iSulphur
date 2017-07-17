@@ -35,4 +35,6 @@ public interface AdminDao {
 	
 	// 
 	public boolean paraCheck(String[] params);
+	
+	// Review URL
 }

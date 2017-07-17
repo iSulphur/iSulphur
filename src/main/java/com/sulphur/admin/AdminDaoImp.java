@@ -121,7 +121,7 @@ public class AdminDaoImp implements AdminDao {
 			@Override
 			public ReportTask mapRow(ResultSet rs, int num) throws SQLException{
 				ReportTask a = new ReportTask();
-				a.setReportTaskID(rs.getString("report_task_id"));
+				a.setreportTaskId(rs.getString("report_task_id"));
 				a.setTaskProperty(rs.getString("task_property"));
 				a.setBeginTime(rs.getString("begin_time"));
 				a.setEndTime(rs.getString("end_time"));
@@ -140,7 +140,7 @@ public class AdminDaoImp implements AdminDao {
 			@Override
 			public ReportTask mapRow(ResultSet rs, int num) throws SQLException{
 				ReportTask a = new ReportTask();
-				a.setReportTaskID(rs.getString("report_task_id"));
+				a.setreportTaskId(rs.getString("report_task_id"));
 				a.setTaskProperty(rs.getString("task_property"));
 				a.setBeginTime(rs.getString("begin_time"));
 				a.setEndTime(rs.getString("end_time"));
@@ -160,7 +160,7 @@ public class AdminDaoImp implements AdminDao {
 	@Override
 	public int addNewTask(ReportTask t) {
 		String sql = "insert into team values(?,?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql,new Object[]{t.getReportTaskID(),t.getTaskProperty(),t.getBeginTime(),t.getEndTime(),t.getMaxSubmitTime(),t.getTaskRemake(),t.getTaskStatus()});
+		return jdbcTemplate.update(sql,new Object[]{t.getreportTaskId(),t.getTaskProperty(),t.getBeginTime(),t.getEndTime(),t.getMaxSubmitTime(),t.getTaskRemake(),t.getTaskStatus()});
 	}
 	@Override
 	public List<Report> findAllReport() {

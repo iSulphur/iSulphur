@@ -1,7 +1,7 @@
 package com.sulphur.admin;
 
 public class ReportTask {
-	private String reportTaskID;
+	private String reportTaskId;
 	private String taskProperty;
 	private String beginTime;
 	private String endTime;
@@ -10,7 +10,7 @@ public class ReportTask {
 	private int taskStatus;
 	
 	public ReportTask(String rTI, String tP, String bT, String eT, int mST, String tR, int tS){
-		reportTaskID = rTI;
+		reportTaskId = rTI;
 		taskProperty = tP;
 		beginTime = bT;
 		endTime = eT;
@@ -23,11 +23,11 @@ public class ReportTask {
 		
 	}
 	
-	public String getReportTaskID() {
-		return reportTaskID;
+	public String getreportTaskId() {
+		return reportTaskId;
 	}
-	public void setReportTaskID(String reportTaskID) {
-		this.reportTaskID = reportTaskID;
+	public void setreportTaskId(String reportTaskId) {
+		this.reportTaskId = reportTaskId;
 	}
 	public String getTaskProperty() {
 		return taskProperty;
