@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.deser.Deserializers.Base;
+import com.sulphur.encoding.Base64;
 import com.sulphur.teacher.Review;
 import com.sulphur.user.Report;
 
@@ -335,6 +337,37 @@ public class AdminAction {
 					msg = new Message(Message.WARNING, "Unkown Action.", action);
 				}
 				//
+			}
+			else{
+				msg = new Message(Message.ERROR, "Forbidden", "Permission denied!");
+			}
+		}
+		else{
+			msg = new Message(Message.ERROR, "ERROR", "Not Login!");
+		}
+		return msg;
+	}
+
+	//Get review url
+	@RequestMapping(value="/url.do")
+	public @ResponseBody Message getReviewUrl(HttpServletRequest req){
+		String user = new String();
+		Message msg;
+		HttpSession session;
+			
+		String id = req.getParameter("task_id");
+			
+		session = req.getSession(false);
+
+		if(session != null){
+			user = (String) session.getAttribute("admin_id");
+//			user = "sulphur";
+			int res = adminDao.checkPrivileges(user);
+			if(res == 0){
+				// update password
+				
+				String url = "http://"+ req.getServerName()+":"+req.getServerPort()+req.getContextPath() + "/teacher/view.html?t=" +Base64.getBase64(id);
+				msg = new Message(url);
 			}
 			else{
 				msg = new Message(Message.ERROR, "Forbidden", "Permission denied!");
