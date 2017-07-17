@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.sulphur.admin.Password;
 import com.sulphur.admin.ReportTask;
 import com.sulphur.admin.Team;
+import com.sulphur.teacher.Review;
 
 
 @Service
@@ -63,8 +64,8 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public int insertReport(Report report){
 
-		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0");
+		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0", report.getReport_task_id());
 	}
 	
 	@Override
@@ -90,6 +91,14 @@ public class UserDaoImp implements UserDao {
 		String sql = "select * from team where team_id = ?";
 		RowMapper<Team> rowMapper=new BeanPropertyRowMapper<>(Team.class);
 		Team info = jdbcTemplate.queryForObject(sql, new Object[]{user_id}, rowMapper);
+		return info;
+	}
+	
+	@Override
+	public List<Review> getReviewByID(String report_id){
+		String sql = "select * from review where report_id = ?";
+		RowMapper<Review> rowMapper=new BeanPropertyRowMapper<>(Review.class);
+		List<Review> info = jdbcTemplate.query(sql, new Object[]{report_id}, rowMapper);
 		return info;
 	}
 }
