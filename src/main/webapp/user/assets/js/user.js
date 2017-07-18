@@ -125,24 +125,23 @@ function listrep(){
 		type:"post",
 		url:"/iSulphur/user/user.do?action=agenda_report",
 		success:function(data)
-		{			
-			var content1=document.getElementById("reviewed-rep");
+		{
+			for(var i=0;i<data.msgContent.length;i++){
+			if(data.msgContent[i].review_status==1)
+			{var content1=document.getElementById("reviewed-rep");
 			content1.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
-				{
-				str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
-				}
-			content1.innerHTML=str;
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
+			content1.innerHTML=str;}
 			
+			else{
 			var content2=document.getElementById("reviewing-rep");
 			content2.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
-				{
-				str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
-				}
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
 			content2.innerHTML=str;
+			    }
+			}
 		}
 	});
 	return false;
