@@ -1,5 +1,29 @@
 //teacher
 
+<<<<<<< HEAD
+=======
+
+function showreport(){
+    $.ajax({
+        type:'post',
+        url: '/iSulphur/teacher/report_manager.do?action=show',
+        data:'report_task_id='+$("#report_task_id").val(),
+        success: function(data) 
+        {
+        	
+        	var str="";
+        	var i=0;
+        	for(i=0;i<data.msgContent.length;i++)
+        	str+="<div class='col-md-4 col-sm-4'>"+"<div class='card teal'>"+"<div class='card-content white-text'>"+
+					"<span class='card-title'>报告"+(i+1)+"</span>"+"</div>"+"<div><span>团队名  "+data.msgContent[i].team_name+"</span></div>"+"<div class='card-action'>"+"<a href='review.html'>详情</a>"+
+					"<a href='#'>删除</a>"+"</div>"+"</div>"+"</div>"
+					document.getElementById("hhh").innerHTML = str;
+        }
+    });
+    return false;
+}
+
+>>>>>>> d4fef6bedd65263548c844e933c75bcd8830010f
 function showreview0() {
 	 $.ajax({
         type: 'get',

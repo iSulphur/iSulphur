@@ -45,7 +45,8 @@ public class TeacherAction {
 		}
 		else if(action.equals("show"))
 		{
-			List<Report> result = teacherdao.showReport();
+			String report_task_id=req.getParameter("report_task_id");
+			List<Report> result = teacherdao.showReport(report_task_id);
 			if(result.isEmpty())msg=new Message(Message.ERROR,"none",null);
 			else msg= new Message(Message.SULPHUR,"success",result);
 		}
