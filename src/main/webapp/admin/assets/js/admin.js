@@ -256,7 +256,7 @@ function listhis(){
     			str=str+"<div class='col-md-4 col-sm-4'>"+
     			"<div class='card teal'>"+
     			"<div class='card-content white-tex' style='color:white;'>"+
-    			"<span class='card-title'>" + data.msgContent[i].reportTaskID+"</span><p>"+
+    			"<span class='card-title'>" + data.msgContent[i].reportTaskId+"</span><p>"+
     			"任务要求：<span>"+ data.msgContent[i].taskProperty +
     			"</span>"+"</p><p>开始时间：<span>"+ data.msgContent[i].beginTime +"</span></p><p>结束时间：<span>"+  data.msgContent[i].endTime +
     			"</span><p>最多提交次数:<span>" + data.msgContent[i].maxSubmitTime+
@@ -280,7 +280,7 @@ function listcur(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+='<div class="card-action">'+data.msgContent[i].reportTaskID+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
+				str+='<div class="card-action">'+data.msgContent[i].reportTaskId+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
 				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>';
 				}
 			content1.innerHTML=str;
@@ -290,7 +290,7 @@ function listcur(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+='<p>'+data.msgContent[i].reportTaskID+'</p><p>任务要求：'+data.msgContent[i].taskProperty+
+				str+='<p>'+data.msgContent[i].reportTaskId+'</p><p>任务要求：'+data.msgContent[i].taskProperty+
 				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>';
 				}
 			content2.innerHTML=str;
@@ -313,14 +313,12 @@ function listrep(){
 				if(i%2==0)
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+data.msgContent[i].harvest+'</td></tr>';
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><div><div class="fixWidth"><div class="demo"><div id="trigger1">未评价</div></div></div></div></td></tr>';
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+data.msgContent[i].harvest+'</td></tr>';
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><div><div class="fixWidth"><div class="demo"><div id="trigger1">未评价</div></div></div></div></td></tr>';
 					}
 				}
 			content.innerHTML=str;
@@ -408,4 +406,34 @@ function a(){
 	listcur();
 	listreview();
 	listteaminfo2();
+}
+
+function task(){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/url.do",
+		data:'task_id='+$("#id").val(),
+		success:function(data)
+		{
+			var content=document.getElementById("web");
+			content.empty;
+			var str="";
+			str=data.msgContent;
+			content.innerHTML='网址：<a href="'+str+'">'+str+'</a>';
+		}
+	});
+	return false;
+}
+
+function info(){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/admin.do?action=get_info",
+		success:function(data)
+		{
+			document.getElementById("name").value=data.msgContent.adminName;
+			document.getElementById("phone").value=data.msgContent.adminPhone;
+		}
+	});
+	return false;
 }

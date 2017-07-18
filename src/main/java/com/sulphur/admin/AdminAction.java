@@ -366,7 +366,7 @@ public class AdminAction {
 			if(res == 0){
 				// update password
 				
-				String url = "http://"+ req.getServerName()+":"+req.getServerPort()+req.getContextPath() + "/teacher/view.html?t=" +Base64.getBase64(id);
+				String url = "http://"+ req.getServerName()+":"+req.getServerPort()+req.getContextPath() + "/teacher/task.html?t=" +Base64.getBase64(id);
 				msg = new Message(url);
 			}
 			else{

@@ -25,7 +25,7 @@
 <link href="assets/css/new.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 	</head>
-	<body>
+	<body onload="return show();">
 		<div class="container-fluid box">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
@@ -42,9 +42,34 @@
 						<div class="row">
 							<div class="col-md-offset-1 col-md-10">
 							<form class="a" action ="" method="post" onsubmit="return review();">	
-								<p>团队名称：<span>iSulphur</span></p>
-								<p>团队报告：<span><a href="#">项目报告管理系统报告</a></span>
-								
+								<div class="row">
+									<div class="col-md-12">
+										<div class="card preview-card">
+											<div class="card-title">
+												<h1>项目名称：</h1>
+												<h2>团队名称：</h2>
+											</div>
+											<div class="Msg">
+												<h4>团队负责人：</h4>
+												<h4>联系电话：</h4>
+												<h4>联系邮箱：</h4>
+											</div>
+											<br/>
+											<br/>
+											<br/>
+											<div class="card-content">
+												<h3>一、项目进展</h3>
+												<p></p>
+												<br/>
+												<h3>二、已取得的阶段性成果</h3>
+												<p></p>
+												<br/>
+												<h3>三、下一阶段项目计划及时间安排</h3>
+												<p></p>
+											</div>
+										</div>
+									</div>
+								</div>
 								<p>报告ID：</p><input type="text" placeholder="请输入报告ID。。。" id="report_id">
 								<p>评审分数：</p><input type="text" placeholder="请输入您想给的分数。。。" id="ranking">
 								<p>评审意见：</p>
