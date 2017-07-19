@@ -1,5 +1,6 @@
 package com.sulphur.admin;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.sulphur.teacher.Review;
 import com.sulphur.user.Report;
+import com.sulphur.user.Md5Util;
 
 @Service
 public class AdminDaoImp implements AdminDao {
@@ -21,13 +23,31 @@ public class AdminDaoImp implements AdminDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public int updatePass(String id, String pass) {
+		String md5Pass;
+		Md5Util md5 = new Md5Util();
+		try {
+			md5Pass = md5.strToMd5(pass);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 		String sql="update password set password=? where id=? and type=0";
-		return jdbcTemplate.update(sql,pass,id);
+		return jdbcTemplate.update(sql,md5Pass,id);
 	}
 	@Override
 	public Password checkLogin(String id, String pass) {
+		String md5Pass;
+		Md5Util md5 = new Md5Util();
+		try {
+			md5Pass = md5.strToMd5(pass);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 		String sql = "select * from password where id=? and password=? and type=0";
-		List<Password> res = jdbcTemplate.query(sql, new Object[] {id, pass}, new RowMapper<Password>(){
+		List<Password> res = jdbcTemplate.query(sql, new Object[] {id, md5Pass}, new RowMapper<Password>(){
 			@Override
 			public Password mapRow(ResultSet rs, int num) throws SQLException{
 				Password a = new Password();
