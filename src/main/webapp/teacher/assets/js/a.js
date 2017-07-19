@@ -1,7 +1,3 @@
-//teacher
-
-<<<<<<< HEAD
-=======
 
 function showreport(){
     $.ajax({
@@ -23,7 +19,6 @@ function showreport(){
     return false;
 }
 
->>>>>>> d4fef6bedd65263548c844e933c75bcd8830010f
 function showreview0() {
 	 $.ajax({
         type: 'get',
@@ -52,7 +47,16 @@ function show(){
 			success:function(data)
 			{
 				if(data.msgContent)				
-					{alert("hh");}
+					{
+					document.getElementById("tea-pro").innerHTML="sr";
+					document.getElementById("tea-teamname").innerHTML=data.msgContent.team_name;
+					document.getElementById("tea-teamleader").innerHTML=data.msgContent.team_leader;
+					document.getElementById("tea-teamphone").innerHTML=data.msgContent.leader_phone;
+					document.getElementById("tea-teammail").innerHTML=data.msgContent.leader_mail;
+					document.getElementById("tea-proprogress").innerHTML=data.msgContent.progress;
+					document.getElementById("tea-teamachieve").innerHTML=data.msgContent.harvest;
+					document.getElementById("tea-teamplan").innerHTML=data.msgContent.next_aim;
+					}
 					else
 					{
 						alert("该报告已不存在。！");
@@ -158,18 +162,23 @@ function load(){
 		task_id = GetQueryString("t");
 		setCookie('task_id', task_id);
 	}
-	//alert(task_id);
+	var base = new Base64();  
+	  
+	//2.解密  
+	var d_task_id = base.decode(task_id);  
 	
-	if(task_id){
+//	alert(d_task_id);
+	
+	if(d_task_id){
 	$.ajax({
         type:'get',
         url: '/iSulphur/teacher/report_manager.do?action=show',
-        data:'report_task_id='+task_id,
+        data:'report_task_id='+d_task_id,
         success: function(data) 
         {
         	var str="";
         	var i=0;
-        	for(i=0;i<data.msgContent.length;i++)
+        	for(var i=0;i<data.msgContent.length;i++)
         	str+="<div class='col-md-4 col-sm-4'>"+"<div class='card teal'>"+"<div class='card-content white-text'>"+
 					"<span class='card-title'>报告"+(i+1)+"</span>"+"</div>"+"<div><span>团队名  "+data.msgContent[i].team_name+"</span></div>"+"<div class='card-action'>"+"<button name='report_id' value="+data.msgContent[i].report_id+" onclick='choose(this);'>详情</button>"+
 					"</div>"+"</div>"+"</div>"
@@ -180,6 +189,110 @@ function load(){
 	else
 	{alert("参数不存在！");}
 }
+
+function Base64() {  
+	   
+    // private property  
+    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";  
+   
+    // public method for encoding  
+    this.encode = function (input) {  
+        var output = "";  
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;  
+        var i = 0;  
+        input = _utf8_encode(input);  
+        while (i < input.length) {  
+            chr1 = input.charCodeAt(i++);  
+            chr2 = input.charCodeAt(i++);  
+            chr3 = input.charCodeAt(i++);  
+            enc1 = chr1 >> 2;  
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
+            enc4 = chr3 & 63;  
+            if (isNaN(chr2)) {  
+                enc3 = enc4 = 64;  
+            } else if (isNaN(chr3)) {  
+                enc4 = 64;  
+            }  
+            output = output +  
+            _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +  
+            _keyStr.charAt(enc3) + _keyStr.charAt(enc4);  
+        }  
+        return output;  
+    }  
+   
+    // public method for decoding  
+    this.decode = function (input) {  
+        var output = "";  
+        var chr1, chr2, chr3;  
+        var enc1, enc2, enc3, enc4;  
+        var i = 0;  
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");  
+        while (i < input.length) {  
+            enc1 = _keyStr.indexOf(input.charAt(i++));  
+            enc2 = _keyStr.indexOf(input.charAt(i++));  
+            enc3 = _keyStr.indexOf(input.charAt(i++));  
+            enc4 = _keyStr.indexOf(input.charAt(i++));  
+            chr1 = (enc1 << 2) | (enc2 >> 4);  
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);  
+            chr3 = ((enc3 & 3) << 6) | enc4;  
+            output = output + String.fromCharCode(chr1);  
+            if (enc3 != 64) {  
+                output = output + String.fromCharCode(chr2);  
+            }  
+            if (enc4 != 64) {  
+                output = output + String.fromCharCode(chr3);  
+            }  
+        }  
+        output = _utf8_decode(output);  
+        return output;  
+    }  
+   
+    // private method for UTF-8 encoding  
+    _utf8_encode = function (string) {  
+        string = string.replace(/\r\n/g,"\n");  
+        var utftext = "";  
+        for (var n = 0; n < string.length; n++) {  
+            var c = string.charCodeAt(n);  
+            if (c < 128) {  
+                utftext += String.fromCharCode(c);  
+            } else if((c > 127) && (c < 2048)) {  
+                utftext += String.fromCharCode((c >> 6) | 192);  
+                utftext += String.fromCharCode((c & 63) | 128);  
+            } else {  
+                utftext += String.fromCharCode((c >> 12) | 224);  
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);  
+                utftext += String.fromCharCode((c & 63) | 128);  
+            }  
+   
+        }  
+        return utftext;  
+    }  
+   
+    // private method for UTF-8 decoding  
+    _utf8_decode = function (utftext) {  
+        var string = "";  
+        var i = 0;  
+        var c = c1 = c2 = 0;  
+        while ( i < utftext.length ) {  
+            c = utftext.charCodeAt(i);  
+            if (c < 128) {  
+                string += String.fromCharCode(c);  
+                i++;  
+            } else if((c > 191) && (c < 224)) {  
+                c2 = utftext.charCodeAt(i+1);  
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));  
+                i += 2;  
+            } else {  
+                c2 = utftext.charCodeAt(i+1);  
+                c3 = utftext.charCodeAt(i+2);  
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));  
+                i += 3;  
+            }  
+        }  
+        return string;  
+    }  
+}  
 
 function setCookie(name,value)
 {
