@@ -6,3 +6,4 @@
 *.DS_Store
 /src/test
 /src/main/resources/jdbc.properties
+*.cld
