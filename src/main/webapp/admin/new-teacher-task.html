@@ -100,17 +100,15 @@
                     <div class="col-md-12">
                     	<div class="card">
                     		<div class="card-content">
-                        <form class="a">
+                        <form class="a" method="get" onsubmit="return task();"> 
                         	<p>任 务 I  D ：</p>
-                        	<input type="text" placeholder="输入任务ID"></input>
-                        	<p>开 始 时 间：</p>
-                        	<input type="text" placeholder="输入开始时间"></input>
-                        	<p>截 止 时 间 ：</p>
-                        	<input type="text" placeholder="输入截止时间"></input>
+                        	<input type="text" placeholder="输入任务ID" id="id"></input>
                         	<div>
-                        	<input type="submit" value="发布链接"  name="submit"/>
+                        	<p id="web">网址</p>
+                        	<button type="submit" value="生成链接"  name="submit">生成链接</button>
+                        	<button name="copy">复制链接</button>
+                        	<button name="send_mail"><a href='mailto://'>发送邮件</a></button>
                         	</div>
-		
 		                </form>
 						</div>
                     	</div>

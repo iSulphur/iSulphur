@@ -111,7 +111,7 @@ function listtask(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+='<div class="card-action">'+data.msgContent[i].reportTaskID+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
+				str+='<div class="card-action">'+data.msgContent[i].reportTaskId+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
 				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>'+'<a href="on-line-edit.html"> <button class="btn btn-default btn-flat">新建</button></a>';
 				}
 			content.innerHTML=str;
@@ -125,24 +125,23 @@ function listrep(){
 		type:"post",
 		url:"/iSulphur/user/user.do?action=agenda_report",
 		success:function(data)
-		{			
-			var content1=document.getElementById("reviewed-rep");
+		{
+			for(var i=0;i<data.msgContent.length;i++){
+			if(data.msgContent[i].review_status==1)
+			{var content1=document.getElementById("reviewed-rep");
 			content1.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
-				{
-				str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
-				}
-			content1.innerHTML=str;
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
+			content1.innerHTML=str;}
 			
+			else{
 			var content2=document.getElementById("reviewing-rep");
 			content2.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
-				{
-				str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
-				}
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
 			content2.innerHTML=str;
+			    }
+			}
 		}
 	});
 	return false;
@@ -157,12 +156,9 @@ function teaminfo(){
 			var content=document.getElementById("basicinfo");
 			content.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
-				{
-				str+='<p>团队名称:'+data.msgContent[i].teamName+'</p><p style="margin: 15px 0 0 ;">项目名称:'+data.msgContent[i].project
-				+'</p><p style="margin: 15px 0 0 ;">团队负责人:'+data.msgContent[i].teamLeader+'</p><p style="margin: 15px 0 0 ;">联系电话:'
-				+data.msgContent[i].leaderPhone+'</p><p style="margin: 15px 0 0 ;">联系邮箱:'+data.msgContent[i].leaderMail+'</p>';
-				}
+				str+='<p>团队名称:'+data.msgContent.teamName+'</p><p style="margin: 15px 0 0 ;">项目名称:'+data.msgContent.project
+				+'</p><p style="margin: 15px 0 0 ;">团队负责人:'+data.msgContent.teamLeader+'</p><p style="margin: 15px 0 0 ;">联系电话:'
+				+data.msgContent.leaderPhone+'</p><p style="margin: 15px 0 0 ;">联系邮箱:'+data.msgContent.leaderMail+'</p>';
 			content.innerHTML=str;
 		}
 	});
