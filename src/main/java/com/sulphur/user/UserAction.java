@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sulphur.admin.Message;
 import com.sulphur.admin.Password;
 import com.sulphur.admin.ReportTask;
+import com.sulphur.admin.Result;
 import com.sulphur.admin.Team;
 import com.sulphur.teacher.Review;
 
@@ -262,6 +263,13 @@ public class UserAction {
 			} else {
 				msg = new Message(Message.ERROR, "ERROR", "Not login!");
 			}
+			return msg;
+		}
+		else if(action.equals("find_result")){
+			Message msg;
+			String rI = req.getParameter("report_id");
+			Result result = userDao.findResult(rI);
+			msg = new Message(result);
 			return msg;
 		}
 		return new Message(Message.ERROR, "ERROR", "Unknow error");
