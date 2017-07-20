@@ -206,3 +206,25 @@ function choose(obj){
 	setCookie('report_id',report_id);
 	window.location.href = "add.html";
 }
+
+function result(){
+	var t = getCookie("report_id") ;
+	if(t != null){
+	$.ajax({
+	type:"post",
+	url:"/iSulphur/user/user.do?action=find_result",
+	data:'report_id='+t,
+	success:function(data)
+	{			
+		document.getElementById("result").innerHTML=data.msgContent.finalResult;
+	}
+	});
+return false;
+	}
+}
+
+
+function a(){
+	result();
+	listrew();
+}

@@ -303,12 +303,12 @@ function listrep(){
 				if(i%2==0)
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress;
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'<td>'+result(data.msgContent.report_id)+'</td></tr>';
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress;
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'<td>'+result(data.msgContent.report_id)+'</td></tr>';
 					}
 				}
 			content.innerHTML=str;
@@ -337,11 +337,11 @@ function listreview(){
 	return false;
 }
 
-function addresult(obj){
+function addresult(obj,a){
 	$.ajax({
 		type:"post",
 		url:"/iSulphur/admin/report.do?action=add_result",
-		data:'report_id='+obj.value+'&final_result='+$("#final_result").val(),
+		data:'report_id='+obj.value+'&final_result='+a,
 		success:function(data)
 		{
 			if(data.msgContent)
@@ -428,13 +428,13 @@ function over(){
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(obj);">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));">查看</button></td></tr>';
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(obj);">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));">查看</button></td></tr>';
 					}
 				}
 			content.innerHTML=str;
@@ -485,4 +485,40 @@ function getresult(){
 		}
 	});
 	return false;
+}
+
+function pingshen(obj){
+	var o=document.getElementsByTagName("button");
+	for(var i=0;i<o.length;i++)
+		{
+			if(obj==o[i])
+			{
+				var sel=obj.parentNode.firstChild;
+				var index=sel.selectedIndex;
+				var eval=sel.options[index].text;
+			}
+		}
+	return eval;
+}
+
+function choose(obj){
+	var report_id = obj.value;
+	setCookie('report_id',report_id);
+}
+
+function result(report_id){
+	var t = report_id;
+	if(t != null){
+	$.ajax({
+	type:"post",
+	url:"/iSulphur/admin/report.do?action=find_result",
+	data:'report_id='+t,
+	success:function(data)
+	{			
+		var y = data.msgContent.finalResult;
+		return y;
+	}
+	});
+    return false;
+	}
 }
