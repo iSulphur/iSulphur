@@ -107,8 +107,8 @@ function listtask(){
 		success:function(data)
 		{			
 			var content=document.getElementById("curtask");
-			content.empty;
 			var str="";
+		    
 			for(var i=0;i<data.msgContent.length;i++)
 				{
 				str+='<div class="card-action">'+data.msgContent[i].reportTaskId+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
@@ -212,7 +212,7 @@ function result(){
 	if(t != null){
 	$.ajax({
 	type:"post",
-	url:"/iSulphur/user/user.do?action=find_result",
+	url:"iSulphur/user/user.do?action=find_result",
 	data:'report_id='+t,
 	success:function(data)
 	{			
