@@ -66,7 +66,7 @@ public class UserDaoImp implements UserDao {
 	public int insertReport(Report report){
 
 		String sql="insert report values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), "0", "0", report.getReport_task_id());
+		return jdbcTemplate.update(sql, report.getReport_id(), report.getUpload_date(), report.getTeam_name(), report.getProject(), report.getTeam_leader(), report.getLeader_phone(), report.getLeader_mail(), report.getProgress(), report.getHarvest(), report.getNext_aim(), report.getUpload_status(), "0", report.getReport_task_id());
 	}
 	
 	@Override

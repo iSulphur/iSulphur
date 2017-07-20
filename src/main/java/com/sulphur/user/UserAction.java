@@ -30,55 +30,56 @@ public class UserAction {
 	private UserDao userDao;
 
 	@RequestMapping(value = "/user.do")
-	public @ResponseBody Message userAction(HttpServletRequest req) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
-		//get action
+	public @ResponseBody Message userAction(HttpServletRequest req)
+			throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+		// get action
 		String action = req.getParameter("action");
-		
-		//if action is null
-		if(action == null ||action.equals("")){
+
+		// if action is null
+		if (action == null || action.equals("")) {
 			Message msg = new Message(Message.WARNING, "No Action", "Please provide what action to do.");
 			return msg;
 		}
-		
-		//login
-		else if(action.equals("login")){
-			//get parameter
+
+		// login
+		else if (action.equals("login")) {
+			// get parameter
 			String id = req.getParameter("id");
 			String password = req.getParameter("password");
-			
-			//convert to md5
+
+			// convert to md5
 			Md5Util test = new Md5Util();
 			String md5Password = test.strToMd5(password);
-			
-			//connect database
+
+			// connect database
 			Password res = userDao.checkLogin(id, md5Password);
 			Message message;
-			
-			if (res != null) {//login success
+
+			if (res != null) {// login success
 				HttpSession session = req.getSession();
 				session.setMaxInactiveInterval(1200);
 				session.setAttribute("user_id", id);
 				session.setAttribute("user_password", password);
 				message = new Message("1");
-			} else {//login failure
+			} else {// login failure
 				message = new Message("0");
 			}
-			
+
 			return message;
 		}
-		
-		//update_team
-		else if(action.equals("update_team")){
-			//get parameter
+
+		// update_team
+		else if (action.equals("update_team")) {
+			// get parameter
 			String team_name = req.getParameter("team_name");
 			String project = req.getParameter("project");
 			String team_leader = req.getParameter("team_leader");
 			String leader_phone = req.getParameter("leader_phone");
 			String leader_email = req.getParameter("leader_email");
 			HttpSession session = req.getSession(false);
-			
+
 			Message message;
-			//login status check
+			// login status check
 			if (session != null) {
 				String user = (String) session.getAttribute("user_id");
 				Integer res = userDao.updateTeam(team_name, project, team_leader, leader_phone, leader_email, user);
@@ -88,25 +89,26 @@ public class UserAction {
 			}
 			return message;
 		}
-		
-		//update_password
-		else if(action.equals("update_password")){
+
+		// update_password
+		else if (action.equals("update_password")) {
 			HttpSession session = req.getSession(false);
 			String user = new String();
 			Message msg;
 			// login status check
 			if (session != null) {
 
-				// input password is the same as current password and new password
+				// input password is the same as current password and new
+				// password
 				// is the same as confirm password
 				if (req.getParameter("current_password").equals(session.getAttribute("user_password"))
 						&& req.getParameter("new_password").equals(req.getParameter("confirm_password"))) {
 					user = (String) session.getAttribute("user_id");
-					
-					//convert to md5
+
+					// convert to md5
 					Md5Util test = new Md5Util();
 					String md5Password = test.strToMd5(req.getParameter("new_password"));
-					
+
 					Integer result = userDao.updatePassword(user, md5Password);
 					msg = new Message(result.toString());
 
@@ -120,9 +122,9 @@ public class UserAction {
 
 			return msg;
 		}
-		
-		//agenda_report
-		else if(action.equals("agenda_report")){
+
+		// agenda_report
+		else if (action.equals("agenda_report")) {
 			HttpSession session = req.getSession(false);
 			Message msg;
 			// login status check
@@ -134,21 +136,21 @@ public class UserAction {
 			}
 			return msg;
 		}
-		
-		//edit
-		else if(action.equals("edit")){
-			//login status check
+
+		// edit
+		else if (action.equals("edit")) {
+			// login status check
 			Message msg;
 			if (req.getSession() != null) {
 				Report report = new Report();
-				
-				//format for report_id and upload_date
+
+				// format for report_id and upload_date
 				Date date = new Date();
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 				String upload_date = simpleDateFormat.format(date);
-				String report_id = (String)req.getSession().getAttribute("user_id")+upload_date;
-				
-				//build report
+				String report_id = (String) req.getSession().getAttribute("user_id") + upload_date;
+
+				// build report
 				report.setReport_id(report_id);
 				report.setUpload_date(upload_date);
 				report.setProject(req.getParameter("project"));
@@ -160,18 +162,19 @@ public class UserAction {
 				report.setHarvest(req.getParameter("harvest"));
 				report.setNext_aim(req.getParameter("next_aim"));
 				report.setReport_task_id(req.getParameter("report_task_id"));
-				
+				report.setUpload_status("0");
+
 				Integer result = userDao.insertReport(report);
 				msg = new Message(result.toString());
-				
+
 			} else {
 				msg = new Message(Message.ERROR, "ERROR", "Not login!");
 			}
 			return msg;
 		}
-		
-		//review_report
-		else if(action.equals("review_report")){
+
+		// review_report
+		else if (action.equals("review_report")) {
 			HttpSession session = req.getSession(false);
 			Message msg;
 			// login status check
@@ -183,24 +186,24 @@ public class UserAction {
 			}
 			return msg;
 		}
-		
-		//upload docx
-		else if(action.equals("upload")){
-			//login status check
+
+		// upload docx
+		else if (action.equals("upload")) {
+			// login status check
 			Message msg;
 			if (req.getSession() != null) {
 				Report report = new Report();
-				
-				//format for report_id and upload_date
+
+				// format for report_id and upload_date
 				Date date = new Date();
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 				String upload_date = simpleDateFormat.format(date);
-				String report_id = (String)req.getSession().getAttribute("user_id")+upload_date;
-				
-				//build report
+				String report_id = (String) req.getSession().getAttribute("user_id") + upload_date;
+
+				// build report
 				ExportDocx test = new ExportDocx(req.getParameter("path"));
 				List<String> table = test.getResult();
-				
+
 				report.setReport_id(report_id);
 				report.setUpload_date(upload_date);
 				report.setProject(table.get(0));
@@ -212,18 +215,18 @@ public class UserAction {
 				report.setHarvest(table.get(6));
 				report.setNext_aim(table.get(7));
 				report.setReport_task_id(table.get(8));
-				
+
 				Integer result = userDao.insertReport(report);
 				msg = new Message(result.toString());
-				
+
 			} else {
 				msg = new Message(Message.ERROR, "ERROR", "Not login!");
 			}
 			return msg;
 		}
-		
-		//getTeam
-		else if(action.equals("getTeam")){
+
+		// getTeam
+		else if (action.equals("getTeam")) {
 			HttpSession session = req.getSession(false);
 			Message msg;
 			// login status check
@@ -235,9 +238,9 @@ public class UserAction {
 			}
 			return msg;
 		}
-		
-		//getTask
-		else if(action.equals("getTask")){
+
+		// getTask
+		else if (action.equals("getTask")) {
 			HttpSession session = req.getSession(false);
 			Message msg;
 			// login status check
@@ -249,10 +252,10 @@ public class UserAction {
 			}
 			return msg;
 		}
-		
-		//getReviewByID
-		else if(action.equals("get_review")){
-			//parameter
+
+		// getReviewByID
+		else if (action.equals("get_review")) {
+			// parameter
 			String report_id = req.getParameter("report_id");
 			HttpSession session = req.getSession(false);
 			Message msg;
@@ -264,14 +267,49 @@ public class UserAction {
 				msg = new Message(Message.ERROR, "ERROR", "Not login!");
 			}
 			return msg;
-		}
-		else if(action.equals("find_result")){
+		} else if (action.equals("find_result")) {
 			Message msg;
 			String rI = req.getParameter("report_id");
 			Result result = userDao.findResult(rI);
 			msg = new Message(result);
 			return msg;
 		}
+		// edit and direct upload
+		else if (action.equals("direct_upload")) {
+			// login status check
+			Message msg;
+			if (req.getSession() != null) {
+				Report report = new Report();
+
+				// format for report_id and upload_date
+				Date date = new Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+				String upload_date = simpleDateFormat.format(date);
+				String report_id = (String) req.getSession().getAttribute("user_id") + upload_date;
+
+				// build report
+				report.setReport_id(report_id);
+				report.setUpload_date(upload_date);
+				report.setProject(req.getParameter("project"));
+				report.setTeam_name(req.getParameter("team_name"));
+				report.setTeam_leader(req.getParameter("team_leader"));
+				report.setLeader_phone(req.getParameter("leader_phone"));
+				report.setLeader_mail(req.getParameter("leader_mail"));
+				report.setProgress(req.getParameter("progress"));
+				report.setHarvest(req.getParameter("harvest"));
+				report.setNext_aim(req.getParameter("next_aim"));
+				report.setReport_task_id(req.getParameter("report_task_id"));
+				report.setUpload_status("1");
+
+				Integer result = userDao.insertReport(report);
+				msg = new Message(result.toString());
+
+			} else {
+				msg = new Message(Message.ERROR, "ERROR", "Not login!");
+			}
+			return msg;
+		}
+
 		return new Message(Message.ERROR, "ERROR", "Unknow error");
 	}
 }
