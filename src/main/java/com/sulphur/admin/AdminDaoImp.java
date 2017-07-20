@@ -201,7 +201,7 @@ public class AdminDaoImp implements AdminDao {
 	}
 	@Override
 	public int addResult(Result r) {
-		String sql = "insert into result values(?,?,?)";
+		String sql = "insert into result values(?,?)";
 		return jdbcTemplate.update(sql, new Object[]{r.getReportId(),r.getFinalResult()});
 	}
 	@Override
