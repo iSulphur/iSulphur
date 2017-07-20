@@ -344,8 +344,7 @@ function addresult(obj,a){
 		data:'report_id='+obj.value+'&final_result='+a,
 		success:function(data)
 		{
-			if(data.msgContent)
-				{alert("ok");}
+			alert("ok");
 		}
 	});
 	return false;
@@ -428,13 +427,13 @@ function over(){
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">评审</button></td></tr>';
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button  class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button  class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">评审</button></td></tr>';
 					}
 				}
 			content.innerHTML=str;

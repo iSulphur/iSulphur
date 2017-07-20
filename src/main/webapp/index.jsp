@@ -1,7 +1,7 @@
 <html>
 <body>
 <script>
-window.location.href="admin/login.html";
+window.location.href="user/login.html";
 </script>
 </body>
 </html>
