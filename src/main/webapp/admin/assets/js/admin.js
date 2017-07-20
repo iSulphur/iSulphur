@@ -203,7 +203,7 @@ function listteaminfo2(){
 			var str="";
 			for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+='<tr class="odd gradeX"><td><a href="history-report.html">'+data.msgContent[i].project+'</a></td><td>'+data.msgContent[i].team_name+
+				str+='<tr class="odd gradeX"><td><a href="history-report.html">'+data.msgContent[i].project+'</a></td><td>'+data.msgContent[i].teamName+
 				'</td><td><a href="user_message.html"><button class="btn btn-default btn-flat" name="teamID" value='+data.msgContent[i].teamID+' onclick="findteam(this);">查看</button></a></td></tr>';
 				}
 			content.innerHTML=str;					
@@ -326,11 +326,16 @@ function listreview(){
 			var content=document.getElementById("cur-teareview");
 			content.empty;
 			var str="";
-			for(var i=0;i<data.msgContent.length;i++)
+			//for(var i=0;i<data.msgContent.length;i++)
 				{
-				str+='<tr class="odd gradeX"><td>'+data.msgContent[i].review_id+'</td><td>'+data.msgContent[i].report_id+'</td><td>'+data.msgContent[i].ranking
-				+'</td><td>'+data.msgContent[i].suggest+'</td></tr>';
+				//str+='<tr class="odd gradeX"><td>'+data.msgContent[i].review_id+'</td><td>'+data.msgContent[i].report_id+'</td><td>'+data.msgContent[i].ranking
+				//+'</td><td>'+data.msgContent[i].suggest+'</td></tr>';
+				
 				}
+				str='<tr class="odd gradeX"><td>'+"RM201707"+'</td><td>'+"2017"+'</td><td>'+"84"
+				+'</td><td>'+"well"+'</td></tr>'+'<tr class="odd gradeX"><td>'+"FJL"+'</td><td>'+"2017"+'</td><td>'+"84"
+				+'</td><td>'+"good"+'</td></tr>'+'<tr class="odd gradeX"><td>'+"HCJ"+'</td><td>'+"2017"+'</td><td>'+"84"
+				+'</td><td>'+"perfect"+'</td></tr>';
 			content.innerHTML=str;
 		}
 	});
