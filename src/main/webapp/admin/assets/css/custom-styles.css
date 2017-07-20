@@ -10,7 +10,8 @@ http://creativecommons.org/licenses/by/3.0/
 ------------------------------------------------*/
 body {
     font-family: 'Open Sans', sans-serif;
-    background: #2c445a;
+    background: #231f20;
+    color:#666;
 }
 
  #wrapper {
@@ -107,7 +108,7 @@ border-color: #075CB3;
   color: #1F1F1F;
 }
 .text-muted {
-  color: #3796DE;
+  color: #eaeaea;
 }
 .badge {
   display: inline-block;
@@ -358,7 +359,7 @@ font-size: 14px;
 ------------------------------------------------*/
 //改
 div#sideNav:hover {
-    color: #3796DE;
+    color: #eaeaea;
 }
 
 .user-image {
@@ -372,7 +373,7 @@ max-width:170px;
 .top-navbar{
 margin:0px;
 }
-.top-navbar .navbar-brand {color: #fff;width: 260px;text-align: left;height: 60px;font-size: 24px;font-weight: 700;/* text-transform: uppercase; */line-height: 30px;background: #3796DE;}
+.top-navbar .navbar-brand {color: #231f20;width: 260px;text-align: left;height: 60px;font-size: 24px;font-weight: 700;/* text-transform: uppercase; */line-height: 30px;background: #eaeaea;}
 .navbar-brand b{
 color: #4BD28C;
 }
@@ -416,7 +417,7 @@ padding-top: 4px;
     background-color: #233342 !important;
     color: #fff !important;
 }
-.active-menu i{color: #3796DE !important;}
+.active-menu i{color: #eaeaea !important;}
 .arrow {
     float: right;
     margin-top: 8px;
@@ -470,14 +471,14 @@ ul.nav.nav-second-level.collapse.in {background: #0f2a3f;}
  
 .navbar-side {
 	border:none;
-	background: #2c445a;
+	background: #231f20;
 }
 .top-navbar {
 	background: #ffffff;
 	border-bottom:none;
 }
 .top-navbar .nav > li > a > i {margin-right: 0;}
-.top-navbar .navbar-brand:hover {color: #FFFFFF;background-color: #2d7cb7;}
+.top-navbar .navbar-brand:hover {color: #231f20;background-color: #999;}
 .dropdown-user li {
 margin: 8px 0;
 }
@@ -489,9 +490,9 @@ border:0px solid black;
     background: transparent;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {background-color: #f7f7f7;}
-.navbar-default .navbar-toggle {border-color: #2d7cb7;}
+.navbar-default .navbar-toggle {border-color: #999;}
 
-.navbar-default .navbar-toggle .icon-bar {background-color: #2d7cb7;}
+.navbar-default .navbar-toggle .icon-bar {background-color: #999;}
 .nav > li > a > i {
     margin-right:10px;
     color: #848484;
@@ -618,7 +619,7 @@ font-size: 19px;
 	/* margin: 0 4px; */
 }
 .card.horizontal.cardIcon .card-image {
-    background: #3796DE;
+    background: #eaeaea;
     color: #fff;
     font-size: 10px;
     width: 94px;

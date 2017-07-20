@@ -1410,13 +1410,13 @@ textarea {
 }
 
 a {
-	color: #337ab7;
+	color: #111;
 	text-decoration: none
 }
 
 a:focus,
 a:hover {
-	color: #23527c;
+	color: #111;
 	text-decoration: underline
 }
 
@@ -1690,7 +1690,7 @@ mark {
 }
 
 .text-primary {
-	color: #337ab7
+	color: #111
 }
 
 a.text-primary:hover {
@@ -1731,7 +1731,7 @@ a.text-danger:hover {
 
 .bg-primary {
 	color: #fff;
-	background-color: #337ab7
+	background-color: #111
 }
 
 a.bg-primary:hover {
@@ -3750,7 +3750,7 @@ fieldset[disabled] .btn-default:hover {
 
 .btn-primary {
 	color: #fff;
-	background-color: #337ab7;
+	background-color: #111;
 	border-color: #2e6da4
 }
 
@@ -3789,12 +3789,12 @@ fieldset[disabled] .btn-primary.focus,
 fieldset[disabled] .btn-primary:active,
 fieldset[disabled] .btn-primary:focus,
 fieldset[disabled] .btn-primary:hover {
-	background-color: #337ab7;
+	background-color: #111;
 	border-color: #2e6da4
 }
 
 .btn-primary .badge {
-	color: #337ab7;
+	color: #111;
 	background-color: #fff
 }
 
@@ -4000,7 +4000,7 @@ fieldset[disabled] .btn-danger:hover {
 
 .btn-link {
 	font-weight: 400;
-	color: #337ab7;
+	color: #111;
 	border-radius: 0
 }
 
@@ -4023,7 +4023,7 @@ fieldset[disabled] .btn-link {
 
 .btn-link:focus,
 .btn-link:hover {
-	color: #23527c;
+	color: #111;
 	text-decoration: underline;
 	background-color: transparent
 }
@@ -4194,7 +4194,7 @@ tbody.collapse.in {
 .dropdown-menu>.active>a:hover {
 	color: #fff;
 	text-decoration: none;
-	background-color: #337ab7;
+	background-color: #111;
 	outline: 0
 }
 
@@ -4703,7 +4703,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .nav .open>a:focus,
 .nav .open>a:hover {
 	background-color: #eee;
-	border-color: #337ab7
+	border-color: #111
 }
 
 .nav .nav-divider {
@@ -4815,7 +4815,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .nav-pills>li.active>a:focus,
 .nav-pills>li.active>a:hover {
 	color: #fff;
-	background-color: #337ab7
+	background-color: #111
 }
 
 .nav-stacked>li {
@@ -5542,7 +5542,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 	padding: 6px 12px;
 	margin-left: -1px;
 	line-height: 1.42857143;
-	color: #337ab7;
+	color: #111;
 	text-decoration: none;
 	background-color: #fff;
 	border: 1px solid #ddd
@@ -5565,7 +5565,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 .pagination>li>a:hover,
 .pagination>li>span:focus,
 .pagination>li>span:hover {
-	color: #23527c;
+	color: #111;
 	background-color: #eee;
 	border-color: #ddd
 }
@@ -5579,8 +5579,8 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #337ab7;
-	border-color: #337ab7
+	background-color: #111;
+	border-color: #111;
 }
 
 .pagination>.disabled>a,
@@ -5715,7 +5715,7 @@ a.label:hover {
 }
 
 .label-primary {
-	background-color: #337ab7
+	background-color: #111
 }
 
 .label-primary[href]:focus,
@@ -5798,7 +5798,7 @@ a.badge:hover {
 
 .list-group-item.active>.badge,
 .nav-pills>.active>a>.badge {
-	color: #337ab7;
+	color: #111;
 	background-color: #fff
 }
 
@@ -5882,7 +5882,7 @@ a.badge:hover {
 a.thumbnail.active,
 a.thumbnail:focus,
 a.thumbnail:hover {
-	border-color: #337ab7
+	border-color: #111
 }
 
 .thumbnail .caption {
@@ -6029,7 +6029,7 @@ a.thumbnail:hover {
 	line-height: 20px;
 	color: #fff;
 	text-align: center;
-	background-color: #337ab7;
+	background-color: #111;
 	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
 	-webkit-transition: width .6s ease;
@@ -6215,8 +6215,8 @@ a.list-group-item:hover {
 .list-group-item.active:hover {
 	z-index: 2;
 	color: #fff;
-	background-color: #337ab7;
-	border-color: #337ab7
+	background-color: #111;
+	border-color: #111
 }
 
 .list-group-item.active .list-group-item-heading,
@@ -6648,26 +6648,26 @@ a.list-group-item-danger.active:hover {
 }
 
 .panel-primary {
-	border-color: #337ab7
+	border-color: #111
 }
 
 .panel-primary>.panel-heading {
 	color: #fff;
-	background-color: #337ab7;
-	border-color: #337ab7
+	background-color: #111;
+	border-color: #111
 }
 
 .panel-primary>.panel-heading+.panel-collapse>.panel-body {
-	border-top-color: #337ab7
+	border-top-color: #111
 }
 
 .panel-primary>.panel-heading .badge {
-	color: #337ab7;
+	color: #111;
 	background-color: #fff
 }
 
 .panel-primary>.panel-footer+.panel-collapse>.panel-body {
-	border-bottom-color: #337ab7
+	border-bottom-color: #111
 }
 
 .panel-success {

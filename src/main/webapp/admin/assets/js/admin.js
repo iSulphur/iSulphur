@@ -389,6 +389,20 @@ function setstatus2(){
 	return false;
 }
 
+function setstatus3(){
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/admin/task.do?action=set_status",
+		data:'status='+"600",
+		success:function(data)
+		{
+			if(data.msgContent)
+				{alert("ok");}
+		}
+	});
+	return false;
+}
+
 function deleteteam(obj){
 	$.ajax({
 		type:"get",
