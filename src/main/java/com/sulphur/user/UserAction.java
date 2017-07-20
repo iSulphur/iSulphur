@@ -270,7 +270,7 @@ public class UserAction {
 			String rI = req.getParameter("report_id");
 			Result result = userDao.findResult(rI);
 			msg = new Message(result);
-
+			return msg;
 		}
 		return new Message(Message.ERROR, "ERROR", "Unknow error");
 	}
