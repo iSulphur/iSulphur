@@ -87,14 +87,14 @@ function online(){
 	return false;
 }
 
-function upload(){
+function online2(){
 	$.ajax({
 		type:"post",
-		url:"/iSulphur/user/user.do?action=upload",
-		data:'path='+$("#file").val(),
+		url:"/iSulphur/user/user.do?action=direct_upload",
+		data:'report_task_id='+$("#report_task_id").val()+'&team_name='+$("#team-name").val()+'&project='+$("#projection").val()+'&team_leader='+$("#principal").val()+'&leader_phone='+$("#phone").val()+'&leader_mail='+$("#email").val()+'&progress='+$("#progress").val()+'&harvest='+$("#cur-achieve").val()+'&next_aim='+$("#plan").val(),
 		success:function(data)
 		{			
-			alert('hhhhhhh');
+			alert('ok');
 		}
 	});
 	return false;
