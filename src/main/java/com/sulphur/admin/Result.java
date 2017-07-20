@@ -1,7 +1,7 @@
 package com.sulphur.admin;
 
 public class Result {
-	private String reportID;
+	private String reportId;
 	private String finalResult;
 	
 	public Result(){
@@ -9,15 +9,15 @@ public class Result {
 	}
 	
 	public Result(String id, String finalRes){
-		reportID = id;
+		reportId = id;
 		finalResult = finalRes;
 	}
 	
-	public String getReportID() {
-		return reportID;
+	public String getReportId() {
+		return reportId;
 	}
-	public void setReportID(String reportID) {
-		this.reportID = reportID;
+	public void setReportId(String reportId) {
+		this.reportId = reportId;
 	}
 	public String getFinalResult() {
 		return finalResult;

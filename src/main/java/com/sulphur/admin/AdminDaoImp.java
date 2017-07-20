@@ -202,7 +202,7 @@ public class AdminDaoImp implements AdminDao {
 	@Override
 	public int addResult(Result r) {
 		String sql = "insert into result values(?,?,?)";
-		return jdbcTemplate.update(sql, new Object[]{r.getReportID(),r.getFinalResult()});
+		return jdbcTemplate.update(sql, new Object[]{r.getReportId(),r.getFinalResult()});
 	}
 	@Override
 	public boolean paraCheck(String[] params) {
@@ -215,5 +215,15 @@ public class AdminDaoImp implements AdminDao {
 			}
 		}
 		return true;
+	}
+	@Override
+	public Result findResult(String id) {
+		String sql = "select * from result where report_id=?";
+		RowMapper<Result> rowMapper=new BeanPropertyRowMapper<>(Result.class);
+		List<Result> res = jdbcTemplate.query(sql, new Object[]{id}, rowMapper);
+		if(res != null){
+			return res.get(0);			
+		}
+		return null;
 	}
 }

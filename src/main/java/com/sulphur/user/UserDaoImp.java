@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.sulphur.admin.Password;
 import com.sulphur.admin.ReportTask;
+import com.sulphur.admin.Result;
 import com.sulphur.admin.Team;
 import com.sulphur.teacher.Review;
 
@@ -100,5 +101,16 @@ public class UserDaoImp implements UserDao {
 		RowMapper<Review> rowMapper=new BeanPropertyRowMapper<>(Review.class);
 		List<Review> info = jdbcTemplate.query(sql, new Object[]{report_id}, rowMapper);
 		return info;
+	}
+
+	@Override
+	public Result findResult(String id) {
+		String sql = "select * from result where report_id=?";
+		RowMapper<Result> rowMapper=new BeanPropertyRowMapper<>(Result.class);
+		List<Result> res = jdbcTemplate.query(sql, new Object[]{id}, rowMapper);
+		if(res != null){
+			return res.get(0);			
+		}
+		return null;
 	}
 }

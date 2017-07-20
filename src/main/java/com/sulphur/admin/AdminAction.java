@@ -333,6 +333,19 @@ public class AdminAction {
 					}
 
 				}
+				else if (action.equals("find_result")){
+					String rI = req.getParameter("report_id");
+					
+					String[] p = {rI};
+					// some check
+					if(adminDao.paraCheck(p)){
+						Result result = adminDao.findResult(rI);
+						msg = new Message(result);
+					}else{
+						msg = new Message(Message.ERROR, "ERROR", "Parameter Error!");
+					}
+
+				}
 				else{
 					msg = new Message(Message.WARNING, "Unkown Action.", action);
 				}
