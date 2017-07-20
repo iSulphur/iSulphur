@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i> <strong>iSulphur</strong></a>
+                <a class="navbar-brand waves-effect waves-dark" href="current-task.html"><i class="large material-icons"></i> <strong>iSulphur</strong></a>
 				
 		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
@@ -69,10 +69,12 @@
         </nav>
 		<!-- Dropdown Structure -->
 		<ul id="dropdown1" class="dropdown-content">
-<li><a href="#"><i class="fa fa-exchange fa-fw"></i>　切换账号</a>
-</li> 
-<li><a href="#"><i class="fa fa-sign-out fa-fw"></i>　退　　出</a>
-</li>
+<li>
+					<a href="login.html"><i class="fa fa-exchange fa-fw"></i>　切换账号</a>
+				</li>
+				<li>
+					<a href="login.html"><i class="fa fa-sign-out fa-fw"></i>　退　　出</a>
+				</li>
 </ul> 
                 <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
@@ -124,11 +126,9 @@
 								<div class="collection">
 			<div class="c">
                         	<a href="user-new.html"><input type="button" value="新增"  name="new"/></a>
-                        	<input type="button" value="删除"  name="delete" />
-                        	<input type="button" name="Export" value="导出到Excel"/>
 		 	</div>
                        	<input type="search" placeholder="请输入团队编号"  class="b" id="team">
-                       	<button type="submit" name="Search" id="searching">查询</button>        
+                       	<button  class="btn btn-default btn-flat" type="submit" name="Search" id="searching">查询</button>        
             <div class="card-content">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">

@@ -251,7 +251,7 @@ function listhis(){
     			"</span>"+"</p><p>开始时间：<span>"+ data.msgContent[i].beginTime +"</span></p><p>结束时间：<span>"+  data.msgContent[i].endTime +
     			"</span><p>最多提交次数:<span>" + data.msgContent[i].maxSubmitTime+
     			"</span></p> </div> <div class='card-action'>"+"<a href='historical-report.html'>"+
-    			"详情</a><a href='#'>删除</a> </div> </div> </div>";
+    			"详情</a> </div> </div> </div>";
 			}
 			content.innerHTML=str;
 		}
@@ -428,13 +428,13 @@ function over(){
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">查看</button></td></tr>';
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
 					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
-					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));">查看</button></td></tr>';
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button  class="btn btn-default btn-flat" name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(this,pingshen(this));" style="display:inline;">查看</button></td></tr>';
 					}
 				}
 			content.innerHTML=str;
@@ -464,20 +464,6 @@ function info(){
 	$.ajax({
 		type:"get",
 		url:"/iSulphur/admin/admin.do?action=get_info",
-		success:function(data)
-		{
-			document.getElementById("name").value=data.msgContent.adminName;
-			document.getElementById("phone").value=data.msgContent.adminPhone;
-		}
-	});
-	return false;
-}
-
-function getresult(){
-	$.ajax({
-		type:"get",
-		url:"/iSulphur/admin/admin.do?action=find_result",
-		data:'report_id='+t,
 		success:function(data)
 		{
 			document.getElementById("name").value=data.msgContent.adminName;

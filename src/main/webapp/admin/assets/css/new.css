@@ -34,6 +34,7 @@ input[type="checkbox"]
 }
 .form-control{
 	width:auto;
+	display:inline;
 }
 .search{
 	display: inline;
