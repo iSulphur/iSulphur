@@ -1,7 +1,6 @@
 body{
 	background:#ececec;
-	<!-->url(../img/teacher-bg.png)-->
-	color:#6E7783;
+	color:#333;
 }
 .container-fluid{
 	margin: 20px 0 0 0;
@@ -72,4 +71,7 @@ input[type="text"]{
 }
 .preview-card .card-content p{
 	margin: 0 25px;
+}
+p .purpletext{
+	color:#2C4279;
 }

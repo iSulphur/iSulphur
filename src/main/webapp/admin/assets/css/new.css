@@ -33,9 +33,7 @@ input[type="checkbox"]
 	z-index: 1;
 }
 .form-control{
-	width: 120px;
-	margin: 10px 0 0px 0;
-	
+	width:auto;
 }
 .search{
 	display: inline;
@@ -51,4 +49,7 @@ input[type="checkbox"]
 }
 #daishenhe{
 	
+}
+.adminreview{
+	width:300px;
 }

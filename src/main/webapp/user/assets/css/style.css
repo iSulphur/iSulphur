@@ -1,32 +1,56 @@
 body {
-  background-image:url(../img/background.jpg);
+  background: url(../user/assets/img/workspace4_hires.jpg);
   background-attachment: fixed;
   background-size: cover;
-  color: #666666;
-  font-family: 'RobotoDraft', 'Roboto', sans-serif;
-  font-size: 12px;
+  color: #666666;0
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Pen Title */
 .pen-title {
-  padding: 50px 0;
+  padding: 25px 0;
   text-align: center;
   letter-spacing: 2px;
-  margin: 0 0 0 -40px;
 }
 .pen-title h1 {
+  margin: 0 0 0px;
   font-size: 48px;
   font-weight: 300;
-  color: #C0C0C0;
 }
+
+
+
+/* Scroll To Bottom */
+#codepen, #portfolio {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #363636;
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  color: #ffffff;
+  text-align: center;
+}
+#codepen i, #portfolio i {
+  line-height: 56px;
+}
+#codepen:hover, #portfolio:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
 
 /* Container */
 .container {
   position: relative;
+  max-width: 460px;
   width: 100%;
-  margin: 0 auto 0px;
+  margin: 0 auto 100px;
 }
 .container.active .card:first-child {
   background: #f2f2f2;
@@ -41,38 +65,35 @@ body {
 /* Card */
 .card {
   position: relative;
-  background-color: rgba(250,250,250,1);
+  background: rgba(250,250,250,0.75);
   border-radius: 5px;
   padding: 60px 0 40px 0;
   box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   -webkit-transition: .3s ease;
   transition: .3s ease;
-  height: 450px;
-  width: 380px;
 }
 .card:first-child {
-  background-color: rgba(250,250,250,0.8);
+  background: <!--fafafa-->rgba(250,250,250,0.4);
   height: 10px;
-  width: 360px;
-  margin: 0 10px;
   border-radius: 5px 5px 0 0;
+  margin: 0 10px;
   padding: 0;
 }
 .card .title {
   position: relative;
   z-index: 1;
   border-left: 5px solid #3796DE;
-  margin: 0 0 25px;
+  margin: 0 0 35px;
   padding: 10px 0 10px 50px;
   color: #3796DE;
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
   text-transform: uppercase;
 }
 .card .input-container {
   position: relative;
-  margin: 0 65px 35px;
+  margin: 0 60px 50px;
 }
 .card .input-container input {
   outline: none;
@@ -80,10 +101,10 @@ body {
   position: relative;
   background: none;
   width: 100%;
-  height: 40px;
+  height: 60px;
   border: 0;
   color: #212121;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 400;
 }
 .card .input-container input:focus ~ label {
@@ -104,9 +125,9 @@ body {
   top: 0;
   left: 0;
   color: #757575;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 300;
-  line-height: 50px;
+  line-height: 60px;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
@@ -145,7 +166,7 @@ body {
   background: 0;
   width: 240px;
   border: 2px solid #3796DE;
-  padding: 18px 0;
+  padding: 20px 0;
   font-size: 24px;
   font-weight: 600;
   line-height: 1;
@@ -191,9 +212,9 @@ body {
   transform: scale(10);
 }
 .card .footer {
-  margin: 25px 0 0;
+  margin: 40px 0 0;
   color: #d3d3d3;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 300;
   text-align: center;
 }

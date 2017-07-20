@@ -71,7 +71,7 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public List<Report> viewReport(String user_id){
 		
-		String sql="select * from report where team_name in(select team_name form team where team_id=?) and upload_status=1";
+		String sql="select * from report where team_name in (select team_name from team where team_id =?) and upload_status=1";
 		RowMapper<Report> rowMapper=new BeanPropertyRowMapper<>(Report.class);
 		List<Report> reports = jdbcTemplate.query(sql, new Object[]{user_id}, rowMapper);
 		return reports;

@@ -25,7 +25,7 @@
 <link href="assets/css/new.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 	</head>
-	<body onload="return show();">
+	<body>
 		<div class="container-fluid box">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
@@ -41,7 +41,7 @@
 						
 						<div class="row">
 							<div class="col-md-offset-1 col-md-10">
-							<form class="a" action ="" method="post" onsubmit="return review();">	
+							<form class="a" action ="">	
 								<div class="row">
 									<div class="col-md-12">
 										<div class="card">
@@ -67,7 +67,8 @@
 								<p>评审分数：</p><input type="text" placeholder="请输入您想给的分数。。。" id="ranking">
 								<p>评审意见：</p>
 								<textarea rows="18" cols="8" placeholder="请填写对报告的评审意见。。。" id="suggest" style="width:100%;height:500px;resize: none;overflow: scroll;"></textarea>
-								<button><span>暂存</span></button>
+								<button onclick="review();"><span>暂存</span></button>
+								<button onclick="review1();"><span>提交</span></button>
 							</form>
 							</div>
 						</div>

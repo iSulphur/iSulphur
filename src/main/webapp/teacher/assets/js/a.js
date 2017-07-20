@@ -22,14 +22,14 @@ function showreport(){
 function showreview0() {
 	 $.ajax({
         type: 'get',
-        url: '/iSulphur/teacher/review_manager.do?action=findall',
+        url: '/iSulphur/teacher/review_manager.do?action=findall0',
         success: function(data) 
         { 	
         	var str="";
         	var i=0;
         	for(i=0;i<data.msgContent.length;i++)
         	str+="<tr>" + "<td>" + data.msgContent[i].review_id + "</td>" + "<td>" +
-        	data.msgContent[i].report_id + "</td>" + "<td>" + data.msgContent[i].ranking + "</td>" +
+        	data.msgContent[i].report_id + "</td>" + "<td>" + data.msgContent[i].ranking + "</td><td>"+data.msgContent[i].suggest+"</td>" +
 			"<td><a href='update.html'><input type='button' value='修改'  name='new'/></a></td>"+"</tr>";
 			document.getElementById("hello").innerHTML = str;
         }
@@ -79,19 +79,13 @@ function showreview1() {
        	var i=0;
        	for(i=0;i<data.msgContent.length;i++)
        	str+="<tr>" + "<td>" + data.msgContent[i].review_id + "</td>" + "<td>" +
-       	data.msgContent[i].report_id + "</td>" + "<td>" + data.msgContent[i].ranking + "</td>" +
-			"<td><a href='view.html'><input type='button' value='查看'  name='new'/></a></td>"+"</tr>";
+       	data.msgContent[i].report_id + "</td>" + "<td>" + data.msgContent[i].ranking + "</td><td>"+data.msgContent[i].suggest+"</td>";
 			document.getElementById("world").innerHTML = str;
        }
    });
    return false;
 }
 
-function choose(obj){
-	var report_id = obj.value;
-	setCookie('report_id',report_id);
-	window.location.href = "review.html";
-}
 
 function review(){
 	$.ajax({
@@ -180,7 +174,7 @@ function load(){
         	var i=0;
         	for(var i=0;i<data.msgContent.length;i++)
         	str+="<div class='col-md-4 col-sm-4'>"+"<div class='card teal'>"+"<div class='card-content white-text'>"+
-					"<span class='card-title'>报告"+(i+1)+"</span>"+"</div>"+"<div><span>团队名  "+data.msgContent[i].team_name+"</span></div>"+"<div class='card-action'>"+"<button name='report_id' value="+data.msgContent[i].report_id+" onclick='choose(this);'>详情</button>"+
+					"<span class='card-title'>"+data.msgContent[i].team_name+"</span></div>"+"<div class='card-action'>"+"<button class='btn btn-default btn-flat' name='report_id' value="+data.msgContent[i].report_id+" onclick='choose(this);'>详情</button>"+
 					"</div>"+"</div>"+"</div>"
 					document.getElementById("hhh").innerHTML = str;
         }
@@ -310,3 +304,10 @@ return unescape(arr[2]);
 else
 return null;
 }
+
+function choose(obj){
+	var report_id = obj.value;
+	setCookie('report_id',report_id);
+	window.location.href = "review.html";
+}
+

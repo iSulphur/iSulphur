@@ -981,7 +981,7 @@
 }
 
 .teal {
-	background-color: #009688 !important
+	background-color: #BBBBBB !important
 }
 
 .teal-text {
@@ -4517,14 +4517,14 @@ footer.page-footer .footer-copyright {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
-	color: #ffab40;
+	color: #8f8f8f;
 	margin-right: 20px;
 	transition: color .3s ease;
 	text-transform: uppercase
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
-	color: #ffd8a6
+	color: #4c4a4a;
 }
 
 .card .card-reveal {

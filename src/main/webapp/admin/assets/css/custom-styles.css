@@ -414,7 +414,7 @@ line-height: 21px;
 padding-top: 4px;
 }
 .active-menu, .active-menu i {
-    background-color: #233342 !important;
+    background-color: #4C4A4A !important;
     color: #fff !important;
 }
 .active-menu i{color: #eaeaea !important;}
@@ -462,7 +462,7 @@ padding-top: 4px;
 .sidebar-collapse > .nav > li {
 	border-bottom: 1px solid rgba(107, 108, 109, 0.19);
 }
-ul.nav.nav-second-level.collapse.in {background: #0f2a3f;}
+ul.nav.nav-second-level.collapse.in {background: #1a1a1a;}
 .sidebar-collapse .nav > li > a:hover,
 .sidebar-collapse .nav > li > a:focus {
 	 

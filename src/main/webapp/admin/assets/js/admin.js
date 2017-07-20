@@ -55,16 +55,6 @@ function updateinfo(){
 	return false;
 }
 
-/*function listteaminfo(){
-	$.ajax({
-		type:"post",
-		url:"/iSulphur/admin/team.do?action=findall",
-		data:,
-		success:function(data)
-		{
-	});
-}
-*/
 function addteam(){
 		$.ajax({
 			type:"post",
@@ -313,12 +303,12 @@ function listrep(){
 				if(i%2==0)
 					{
 					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><div><div class="fixWidth"><div class="demo"><div id="trigger1">未评价</div></div></div></div></td></tr>';
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress;
 					}
 				else
 					{
 					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
-					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><div><div class="fixWidth"><div class="demo"><div id="trigger1">未评价</div></div></div></div></td></tr>';
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress;
 					}
 				}
 			content.innerHTML=str;
@@ -347,11 +337,11 @@ function listreview(){
 	return false;
 }
 
-function addresult(){
+function addresult(obj){
 	$.ajax({
 		type:"post",
 		url:"/iSulphur/admin/report.do?action=add_result",
-		data:'report_id='+$("#report_id").val()+'&final_result='+$("#final_result").val(),
+		data:'report_id='+obj.value+'&final_result='+$("#final_result").val(),
 		success:function(data)
 		{
 			if(data.msgContent)
@@ -420,6 +410,37 @@ function a(){
 	listcur();
 	listreview();
 	listteaminfo2();
+	over();
+}
+
+function over(){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/report.do?action=findall",
+		success:function(data)
+		{
+			var content=document.getElementById("over-hisreport-content");
+			content.empty;
+			var str="";
+			for(var i=0;i<data.msgContent.length;i++)
+				{
+				if(i%2==0)
+					{
+					str+='<tr class="odd gradeX">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(obj);">查看</button></td></tr>';
+					}
+				else
+					{
+					str+='<tr class="even gradeC">'+'<td>'+data.msgContent[i].report_id+'</td><td>'+'<a href="historical-report.html">'+data.msgContent[i].project+
+					'</a></td><td>'+'<a href="user_message.html">'+data.msgContent[i].team_name+'</a></td><td class="center">'+data.msgContent[i].progress+'</td><td class="center">'
+					+'<select class="form-control"><option>未评审</option><option>优秀</option><option>合格</option><option>不合格</option></select><button name="report_id" value='+data.msgContent[i].report_id+' onclick="addresult(obj);">查看</button></td></tr>';
+					}
+				}
+			content.innerHTML=str;
+		}
+	});
+	return false;
 }
 
 function task(){
@@ -443,6 +464,20 @@ function info(){
 	$.ajax({
 		type:"get",
 		url:"/iSulphur/admin/admin.do?action=get_info",
+		success:function(data)
+		{
+			document.getElementById("name").value=data.msgContent.adminName;
+			document.getElementById("phone").value=data.msgContent.adminPhone;
+		}
+	});
+	return false;
+}
+
+function getresult(){
+	$.ajax({
+		type:"get",
+		url:"/iSulphur/admin/admin.do?action=find_result",
+		data:'report_id='+t,
 		success:function(data)
 		{
 			document.getElementById("name").value=data.msgContent.adminName;

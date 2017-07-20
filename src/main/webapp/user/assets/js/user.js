@@ -78,7 +78,7 @@ function online(){
 	$.ajax({
 		type:"post",
 		url:"/iSulphur/user/user.do?action=edit",
-		data:'report_task_id'+$("#report_task_id").val()+'&team_name='+$("#team-name").val()+'&project='+$("#projection").val()+'&team_leader='+$("#principal").val()+'&leader_phone='+$("#phone").val()+'&leader_mail='+$("#email").val()+'&progress='+$("#progress").val()+'&harvest='+$("#cur-achieve").val()+'&next_aim='+$("#plan").val(),
+		data:'report_task_id='+$("#report_task_id").val()+'&team_name='+$("#team-name").val()+'&project='+$("#projection").val()+'&team_leader='+$("#principal").val()+'&leader_phone='+$("#phone").val()+'&leader_mail='+$("#email").val()+'&progress='+$("#progress").val()+'&harvest='+$("#cur-achieve").val()+'&next_aim='+$("#plan").val(),
 		success:function(data)
 		{			
 			alert('ok');
@@ -112,7 +112,7 @@ function listtask(){
 			for(var i=0;i<data.msgContent.length;i++)
 				{
 				str+='<div class="card-action">'+data.msgContent[i].reportTaskId+'</div><div class="card-content"><p>任务要求：'+data.msgContent[i].taskProperty+
-				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>'+'<a href="on-line-edit.html"> <button class="btn btn-default btn-flat">新建</button></a>';
+				'</p><p>开始时间：'+data.msgContent[i].beginTime+'</p><p>结束时间：'+data.msgContent[i].endTime+'</p><p>最多提交次数：'+data.msgContent[i].maxSubmitTime+'</p>'+'<a href="on-line-edit.html"> <button class="btn btn-default btn-flat">新建</button></a></div>';
 				}
 			content.innerHTML=str;
 		}
@@ -123,7 +123,7 @@ function listtask(){
 function listrep(){
 	$.ajax({
 		type:"post",
-		url:"/iSulphur/user/user.do?action=agenda_report",
+		url:"/iSulphur/user/user.do?action=review_report",
 		success:function(data)
 		{
 			for(var i=0;i<data.msgContent.length;i++){
@@ -131,14 +131,14 @@ function listrep(){
 			{var content1=document.getElementById("reviewed-rep");
 			content1.empty;
 			var str="";
-			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].project+'</a>';
 			content1.innerHTML=str;}
 			
 			else{
 			var content2=document.getElementById("reviewing-rep");
 			content2.empty;
 			var str="";
-			str+='<a href="#!" class="collection-item">'+data.msgContent[i].report_id+'</a>';
+			str+='<a href="#!" class="collection-item">'+data.msgContent[i].project+'<button style="float:right;"  name="report_id" value='+data.msgContent[i].report_id+' onclick="choose(this);">查看</button>'+'</a>';
 			content2.innerHTML=str;
 			    }
 			}
@@ -163,4 +163,46 @@ function teaminfo(){
 		}
 	});
 	return false;
+}
+
+function setCookie(name,value)
+{
+var Days = 30;
+var exp = new Date();
+exp.setTime(exp.getTime() + Days*24*60*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return unescape(arr[2]);
+else
+return null;
+}
+
+function listrew(){
+	var t = getCookie("report_id") ;
+	if(t != null){
+	$.ajax({
+		type:"post",
+		url:"/iSulphur/user/user.do?action=get_review",
+		data:'report_id='+t,
+		success:function(data)
+		{			
+			document.getElementById("add_report_id").innerHTML=data.msgContent.report_id;
+			document.getElementById("add_ranking").innerHTML=data.msgContent.ranking;
+			document.getElementById("add_suggest").innerHTML=data.msgContent.suggest;
+			
+		}
+	});
+	return false;
+	}
+}
+
+function choose(obj){
+	var report_id = obj.value;
+	setCookie('report_id',report_id);
+	window.location.href = "add.html";
 }
